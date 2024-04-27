@@ -116,6 +116,7 @@ source:
 	--exclude="../$(app_name)/build" \
 	--exclude="../$(app_name)/js/node_modules" \
 	--exclude="../$(app_name)/node_modules" \
+	--exclude="../$(app_name)/docker" \
 	--exclude="../$(app_name)/*.log" \
 	--exclude="../$(app_name)/js/*.log" \
 	../$(app_name) \
@@ -155,6 +156,7 @@ appstore:
 	--exclude="../$(app_name)/README.md" \
 	--exclude="../$(app_name)/package-lock.json" \
 	--exclude="../$(app_name)/LICENSES" \
+	--exclude="../$(app_name)/docker" \
 	../$(app_name) \
 
 .PHONY: test

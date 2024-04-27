@@ -1,0 +1,100 @@
+stages:
+  - prepare
+  - compiling
+  - assembling
+  - releasing
+  - publishing
+
+image: passwords-builder
+
+Prepare:
+  stage: prepare
+  script:
+    - PACKAGE_NAME=htmlviewer
+    - APP_NAME="Html Viewer"
+    - APP_VERSION=$(node -p "require('./package.json').version")
+    - if [ "${CI_COMMIT_REF_NAME}" != "stable" ] ; then APP_VERSION="${APP_VERSION}-build${CI_PIPELINE_ID}"; PACKAGE_NAME=htmlviewer-nightly ; fi
+    - PACKAGE_REGISTRY_URL="${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/${PACKAGE_NAME}/${APP_VERSION}"
+    - CHANGELOG=$(node --no-warnings scripts/extract-changelog.mjs)
+    - echo "APP_VERSION=${APP_VERSION}" >> variables.env
+    - echo "PACKAGE_REGISTRY_URL=${PACKAGE_REGISTRY_URL}" >> variables.env
+    - echo "CHANGELOG=${CHANGELOG}" >> variables.env
+    - echo "APP_NAME=${APP_NAME}" >> variables.env
+  artifacts:
+    expire_in: 1 week
+    reports:
+      dotenv: variables.env
+  only:
+    - testing
+    - stable
+
+Compile:
+  stage: compiling
+  script:
+    - npm ci
+    - npm run build
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - ./js/*
+  only:
+    - testing
+    - stable
+
+Assemble:
+  stage: assembling
+  script:
+    - mkdir ${PACKAGE_NAME}
+    - if [ "${CI_COMMIT_REF_NAME}" == "stable" ] ; then php scripts/set-version.php ; fi
+    - if [ "${CI_COMMIT_REF_NAME}" != "stable" ] ; then php scripts/set-version.php --nightly --build "${CI_PIPELINE_ID}" ; fi
+    - rsync -r appinfo ${PACKAGE_NAME}
+    - rsync -r img ${PACKAGE_NAME}
+    - rsync -r js ${PACKAGE_NAME}
+    - rsync -r l10n ${PACKAGE_NAME}
+    - rsync -r lib ${PACKAGE_NAME}
+    - cp CHANGELOG.md ${PACKAGE_NAME}/
+    - /usr/src/nextcloud/occ integrity:sign-app --path=$(pwd)/${PACKAGE_NAME} --privateKey=${SIGN_KEY} --certificate=${SIGN_CRT}
+    - tar -zcf ${PACKAGE_NAME}.tar.gz ${PACKAGE_NAME}
+    - SIGNATURE=$(openssl dgst -sha512 -sign ${SIGN_KEY} ./${PACKAGE_NAME}.tar.gz | openssl base64 | tr -d "\n")
+    - echo "SIGNATURE=${SIGNATURE}" >> variables.env
+    - if [ "${CI_COMMIT_REF_NAME}" == "stable" ] ; then UPLOAD_URL="${PACKAGE_REGISTRY_URL}/${PACKAGE_NAME}.tar.gz" ; fi
+    - if [ "${CI_COMMIT_REF_NAME}" != "stable" ] ; then UPLOAD_URL="${PACKAGE_REGISTRY_URL}/${PACKAGE_NAME}-nightly.tar.gz" ; fi
+    - 'curl --retry 5 --retry-all-errors --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file ./${PACKAGE_NAME}.tar.gz "${UPLOAD_URL}"'
+    - echo "Package available at ${UPLOAD_URL}"
+  artifacts:
+    expire_in: 1 week
+    reports:
+      dotenv: variables.env
+  only:
+    - testing
+    - stable
+
+Publish Package:
+  stage: publishing
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  script:
+    - echo -e "## New in ${APP_NAME} ${APP_VERSION}\\n${CHANGELOG}" > description.txt
+    - |
+      release-cli create --name "${APP_NAME} ${APP_VERSION}" --tag-name ${APP_VERSION} \
+        --description "description.txt" \
+        --assets-link "{\"name\":\"${APP_NAME} ${APP_VERSION} (tar.gz)\",\"url\":\"${PACKAGE_REGISTRY_URL}/${PACKAGE_NAME}.tar.gz\",\"link_type\":\"package\"}"
+  only:
+    - stable
+
+Publish Nightly:
+  stage: publishing
+  script:
+    - 'curl --retry 3 --retry-all-errors -m 900 --connect-timeout 900 -f -X POST ${API_URL} -H "Authorization: Token ${API_TOKEN}" -H "Content-Type: application/json" -d "{\"download\":\"${PACKAGE_REGISTRY_URL}/${PACKAGE_NAME}-nightly.tar.gz\",\"signature\":\"${SIGNATURE}\",\"nightly\":true}"'
+  environment:
+    name: Testing
+  only:
+  - testing
+
+Publish Stable:
+  stage: publishing
+  script:
+    - 'curl --retry 3 --retry-all-errors -m 900 --connect-timeout 900 -f -X POST ${API_URL} -H "Authorization: Token ${API_TOKEN}" -H "Content-Type: application/json" -d "{\"download\":\"${PACKAGE_REGISTRY_URL}/${PACKAGE_NAME}.tar.gz\",\"signature\":\"${SIGNATURE}\",\"nightly\":false}"'
+  environment:
+    name: Stable
+  only:
+  - stable
