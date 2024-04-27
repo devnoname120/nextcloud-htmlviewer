@@ -40,8 +40,8 @@
             NcModal
         },
         data() {
-            let filesize: parseInt;
-            (document.getElementById('filesize').value);
+            let filesize = parseInt(document.getElementById('filesize').value);
+
             return {
                 showFile   : false,
                 filename   : document.getElementById('filename').value,
