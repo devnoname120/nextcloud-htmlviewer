@@ -14,11 +14,11 @@
             <HTMLViewer :size="filesize" :source="downloadURL" :show-loading="true"/>
         </NcModal>
         <div class="htmlviewer-cta">
-            <NcButton :aria-label="t('htmlviewer', 'View')" @click="showFile = true">
+            <NcButton :aria-label="t('View')" @click="showFile = true">
                 <template #icon>
                     <EyeIcon :size="20"/>
                 </template>
-                <template>{{ t('htmlviewer', 'View') }}</template>
+                <template>{{ t('View') }}</template>
             </NcButton>
         </div>
     </div>

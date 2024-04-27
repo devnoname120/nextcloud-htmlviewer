@@ -32,7 +32,7 @@ window.addEventListener('DOMContentLoaded', function() {
         Vue.mixin(
             {
                 methods: {
-                    t: (t, v) => { return translate(t, v); }
+                    t: (t, v) => { return translate('htmlviewer', t, v); }
                 }
             }
         );
