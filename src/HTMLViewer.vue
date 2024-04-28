@@ -10,7 +10,7 @@
 
 <template>
     <div class="htmlviewer-container">
-        <iframe referrerpolicy="no-referrer" :sandbox="sandbox" :src="src" v-if="contentLoaded" credentialless="true"/>
+        <iframe referrerpolicy="no-referrer" credentialless="true" :sandbox="sandbox" :csp="csp" :src="src" v-if="contentLoaded"/>
         <div class="error" v-if="error">{{ error }}</div>
         <NcDialog v-if="hasDialog" :name="t('Warning')" :can-close="false">
             <template #actions>
@@ -55,6 +55,7 @@
                 allowJs,
                 disableWarning,
                 maxSize      : loadState('htmlviewer', 'maxSize'),
+                csp          : loadState('htmlviewer', 'csp'),
                 error        : null,
                 hasDialog    : false,
                 showWarning  : allowJs && !disableWarning
@@ -94,7 +95,7 @@
 
                 if(this.allowJs) {
                     let nonce = loadState('htmlviewer', 'nonce');
-                    content = response.data.replace(/\<script/, `<script nonce="${nonce}"`);
+                    content = response.data.replace(/\<script/g, `<script nonce="${nonce}"`);
                 }
 
                 let blob = new Blob([content], {type: "text/html"});
@@ -118,7 +119,6 @@
                     .catch(console.error);
             }
         },
-
 
         watch: {
             source() {
