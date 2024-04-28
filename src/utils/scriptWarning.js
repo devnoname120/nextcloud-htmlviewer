@@ -24,7 +24,7 @@ export default new class ScriptWarning {
     }
 
     disable() {
-        if(!isPublicPage && !this._disableWarning) {
+        if(!isPublicPage() && !this._disableWarning) {
             axios.get(
                 getBaseUrl() +
                 generateUrl('/apps/htmlviewer/settings/warning')

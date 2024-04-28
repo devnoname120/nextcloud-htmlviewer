@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+if [ ! -f /var/www/html/version.php ]; then
+    exit 0;
+fi
+
 # System Settings
 /var/www/html/occ config:system:set loglevel --value=0 --type=int;
 /var/www/html/occ config:system:set default_phone_region --value=DE --type=string;
