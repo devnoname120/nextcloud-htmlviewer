@@ -63,7 +63,7 @@ Assemble:
     - PACKAGE_URL="${PACKAGE_REGISTRY_URL}/${PACKAGE_NAME}.tar.gz"
     - echo "PACKAGE_URL=${PACKAGE_URL}" >> variables.env
     - 'curl --retry 5 --retry-all-errors --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file ./${PACKAGE_NAME}.tar.gz "${PACKAGE_URL}"'
-    - echo "Package available at ${UPLOAD_URL}"
+    - echo "Package available at ${PACKAGE_URL}"
   artifacts:
     expire_in: 1 week
     reports:
