@@ -78,15 +78,21 @@ class LoadViewerListener implements IEventListener {
      */
     protected function provideJavaScriptSettings(): void {
         $defaultCsp = "'default-src blob: data: ; style-src: \'unsafe-inline\' blob: data:";
+        $defaultSandbox = '';
+
         if($this->config->getAppValue('allowJs') === '1') {
             $this->initialState->provideInitialState('allowJs', true);
             $this->initialState->provideInitialState('nonce', $this->nonceManager->getNonce());
             $defaultCsp = "'default-src \'unsafe-eval\' \'unsafe-inline\' \'wasm-unsafe-eval\' blob: data:'";
+            $defaultSandbox = 'allow-scripts allow-presentation allow-modals allow-downloads';
         } else {
             $this->initialState->provideInitialState('allowJs', false);
         }
 
         $csp = $this->config->getAppValue('csp', $defaultCsp);
         $this->initialState->provideInitialState('csp', $csp);
+
+        $csp = $this->config->getAppValue('sandbox', $defaultSandbox);
+        $this->initialState->provideInitialState('sandbox', $csp);
     }
 }

@@ -25,10 +25,13 @@ By default, the app will load HTML files up to 32MB. To change the file size, us
  ./occ config:app:set htmlviewer maxSize --value=SizeInMegabyte
 ```
 
-### Iframe CSP
-The app adds a CSP to the iframe element which [by supported browsers](https://caniuse.com/mdn-api_htmliframeelement_csp) can be used to restrict what can be done within the iframe.
+### Iframe Permissions
+The app automatically configures the iframe with an CSP for [supported browsers](https://caniuse.com/mdn-api_htmliframeelement_csp) and a sandbox to limit code execution and data access.
+Both policies can be changed through config settings with the OCC commands shown below.
+Please be aware that the general CSP of your Nextcloud may still block some access regardless of what CSP and sandbox settings you configure.
 
 To change the CSP, use this occ command:
 ```bash
- ./occ config:app:set htmlviewer csp --value=YourNewCsp
+ ./occ config:app:set htmlviewer csp --value=CustomCspSettings
+ ./occ config:app:set htmlviewer sandbox --value=CustomSandboxSettings
 ```

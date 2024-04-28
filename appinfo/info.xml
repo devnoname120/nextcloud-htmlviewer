@@ -3,7 +3,7 @@
       xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
     <id>htmlviewer</id>
     <name>Html Viewer</name>
-    <summary>View html files directly in Nextcloud.</summary>
+    <summary>View static HTML files in Nextcloud.</summary>
     <description><![CDATA[# Html Viewer
 HTML files can be a great way to illustrate content in an interactive and responsive format.
 The HTML viewer app enables the possibility to view static HTML files directly via an iframe within Nextcloud.
@@ -29,12 +29,15 @@ By default, the app will load HTML files up to 32MB. To change the file size, us
  ./occ config:app:set htmlviewer maxSize --value=SizeInMegabyte
 ```
 
-### Iframe CSP
-The app adds a CSP to the iframe element which [by supported browsers](https://caniuse.com/mdn-api_htmliframeelement_csp) can be used to restrict what can be done within the iframe.
+### Iframe Permissions
+The app automatically configures the iframe with an CSP for [supported browsers](https://caniuse.com/mdn-api_htmliframeelement_csp) and a sandbox to limit code execution and data access.
+Both policies can be changed through config settings with the OCC commands shown below.
+Please be aware that the general CSP of your Nextcloud may still block some access regardless of what CSP and sandbox settings you configure.
 
 To change the CSP, use this occ command:
 ```bash
- ./occ config:app:set htmlviewer csp --value=YourNewCsp
+ ./occ config:app:set htmlviewer csp --value=CustomCspSettings
+ ./occ config:app:set htmlviewer sandbox --value=CustomSandboxSettings
 ```]]></description>
     <version>28.0.0</version>
     <licence>agpl</licence>
@@ -42,6 +45,9 @@ To change the CSP, use this occ command:
     <namespace>HtmlViewer</namespace>
     <category>files</category>
     <bugs>https://git.mdns.eu/nextcloud/htmlviewer</bugs>
+    <screenshot>
+        <![CDATA[https://git.mdns.eu/nextcloud/htmlviewer/-/raw/master/img/screenshot.webp]]>
+    </screenshot>
     <dependencies>
         <nextcloud min-version="28" max-version="28"/>
     </dependencies>

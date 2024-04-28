@@ -55,6 +55,7 @@
                 allowJs,
                 disableWarning,
                 maxSize      : loadState('htmlviewer', 'maxSize'),
+                sandbox      : loadState('htmlviewer', 'sandbox'),
                 csp          : loadState('htmlviewer', 'csp'),
                 error        : null,
                 hasDialog    : false,
@@ -71,15 +72,7 @@
                 });
             }
         },
-        computed: {
-            sandbox() {
-                if(this.allowJs) {
-                    return 'allow-scripts allow-presentation allow-modals allow-downloads';
-                }
-                return '';
-            }
-        },
-        methods : {
+        methods: {
             async loadFileContent() {
                 if(this.size > this.maxSize) {
                     this.error = this.t(
