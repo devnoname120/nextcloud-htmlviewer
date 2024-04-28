@@ -10,112 +10,87 @@
 
 <template>
     <div class="htmlviewer-container">
-        <iframe referrerpolicy="no-referrer" credentialless="true" :sandbox="sandbox" :csp="csp" :src="src" v-if="contentLoaded"/>
-        <div class="error" v-if="error">{{ error }}</div>
-        <NcDialog v-if="hasDialog" :name="t('Warning')" :can-close="false">
-            <template #actions>
-                <NcCheckboxRadioSwitch :checked.sync="disableWarning" type="switch">{{ t('Do not warn again') }}</NcCheckboxRadioSwitch>
-                <NcDialogButton @click="abort()" :label="t('Cancel')"/>
-                <NcDialogButton @click="ok()" :label="t('Ok')" type="primary"/>
-            </template>
-            {{ t('Opening HTML files in the browser can be a security risk. Do you want to proceed?') }}
-        </NcDialog>
-        <NcLoadingIcon class="htmlviewer-loader" :size="64" v-if="showLoading && !contentLoaded"/>
+        <ContentContainer :file="file" :show-name="isComparison" v-if="file.loaded"/>
+        <ErrorMessage :file="file" v-if="file.isTooBig"/>
+        <WarningDialog v-on:abort="abort" v-on:confirm="ok" v-if="hasDialog"/>
+        <NcLoadingIcon class="htmlviewer-loader" :size="64" v-if="showLoading && !file.loaded"/>
     </div>
 </template>
 
 <script>
-    import axios from '@nextcloud/axios';
     import {loadState} from '@nextcloud/initial-state';
-    import {formatFileSize} from '@nextcloud/files';
-    import {translate} from '@nextcloud/l10n';
-    import NcDialog from '@nextcloud/vue/dist/Components/NcDialog.js';
     import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js';
-    import NcDialogButton from '@nextcloud/vue/dist/Components/NcDialogButton.js';
-    import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js';
+    import File from './models/File.js';
     import scriptWarning from "./utils/scriptWarning";
+    import ErrorMessage from "./components/ErrorMessage.vue";
+    import WarningDialog from "./components/WarningDialog.vue";
+    import ContentContainer from "./components/ContentContainer.vue";
 
     export default {
-        components: {NcDialog, NcLoadingIcon, NcDialogButton, NcCheckboxRadioSwitch},
+        components: {ContentContainer, WarningDialog, ErrorMessage, NcLoadingIcon},
         props     : {
             size       : Number,
             source     : String,
             showLoading: {
                 type   : Boolean,
                 default: false
+            },
+            fileVersion: {
+                type   : Number,
+                default: null
             }
         },
         data() {
-            let disableWarning = scriptWarning.status(),
-                allowJs        = loadState('htmlviewer', 'allowJs');
+            let file = new File(this.basename, this.source, this.size, this.fileVersion);
 
             return {
-                contentLoaded: false,
-                src          : null,
-                allowJs,
-                disableWarning,
-                maxSize      : loadState('htmlviewer', 'maxSize'),
-                sandbox      : loadState('htmlviewer', 'sandbox'),
-                csp          : loadState('htmlviewer', 'csp'),
-                error        : null,
-                hasDialog    : false,
-                showWarning  : allowJs && !disableWarning
+                file,
+                hasDialog: false
             };
         },
         mounted() {
-            if(!this.showWarning) {
-                this.loadFileContent()
-                    .catch(console.error);
-            } else {
-                this.$nextTick(() => {
-                    this.hasDialog = true;
-                });
+            this.loadFile().catch(console.error);
+            if(this.isComparison) {
+                let parentContainer = this.$parent.$el.querySelector('.viewer__content.viewer--split');
+                parentContainer.style.display = 'flex';
+                parentContainer.style.flexDirection = 'row-reverse';
             }
         },
-        methods: {
-            async loadFileContent() {
-                if(this.size > this.maxSize) {
-                    this.error = this.t(
-                        'The file "{file}" ({size}) exceeds the maximum allowed size of {maxSize}.',
-                        {file: this.basename, size: formatFileSize(this.size), maxSize: formatFileSize(this.maxSize)}
-                    );
+        computed: {
+            isComparison() {
+                return this.$parent.$el.querySelector('.viewer__content.viewer--split') !== null;
+            }
+        },
+        methods : {
+            async loadFile(force = false) {
+                if(!force && !scriptWarning.status() && loadState('htmlviewer', 'allowJs')) {
+                    this.hasDialog = true;
                     this.$emit('update:loaded', true);
                     return;
                 }
 
-                const response = await axios.get(this.source);
-                let content = response.data;
-
-                if(this.allowJs) {
-                    let nonce = loadState('htmlviewer', 'nonce');
-                    content = response.data.replace(/\<script/g, `<script nonce="${nonce}"`);
+                if(this.file.isTooBig) {
+                    this.$emit('update:loaded', true);
+                    return;
                 }
 
-                let blob = new Blob([content], {type: "text/html"});
-                this.src = URL.createObjectURL(blob);
-                this.contentLoaded = true;
+                await this.file.loadContent();
                 this.$emit('update:loaded', true);
             },
             abort() {
                 this.hasDialog = false;
                 this.$parent.close();
             },
-            t(s, v) {
-                return translate('htmlviewer', s, v);
-            },
             ok() {
                 this.hasDialog = false;
-                if(this.disableWarning) {
-                    scriptWarning.disable();
-                }
-                this.loadFileContent()
-                    .catch(console.error);
+                this.loadFile(true).catch(console.error);
             }
         },
 
         watch: {
-            source() {
-                this.loadFileContent();
+            source(value) {
+                this.file = new File(this.basename, value, this.size);
+                this.loadFile().catch(console.error);
             }
         }
     };
@@ -123,22 +98,8 @@
 
 <style scoped lang="scss">
 .htmlviewer-container {
-    width  : 100%;
+    width  : 100% !important;
     height : 100%;
-
-    iframe {
-        width      : 100%;
-        height     : 100%;
-        box-sizing : border-box;
-    }
-
-    .error {
-        width      : 100%;
-        text-align : center;
-        padding    : 2rem 1rem;
-        font-size  : 1.25rem;
-        box-sizing : border-box;
-    }
 
     .htmlviewer-loader {
         margin-top : 5rem;

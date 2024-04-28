@@ -21,7 +21,7 @@ OCA.Viewer.registerHandler(
             'text/html'
         ],
         component : HTMLViewer,
-        canCompare: false
+        canCompare: true
     }
 );
 console.log('htmlviewer initialized');

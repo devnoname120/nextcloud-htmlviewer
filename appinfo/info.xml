@@ -48,7 +48,11 @@ To change the CSP, use this occ command:
     <screenshot>
         <![CDATA[https://git.mdns.eu/nextcloud/htmlviewer/-/raw/master/img/screenshot.webp]]>
     </screenshot>
+    <screenshot>
+        <![CDATA[https://git.mdns.eu/nextcloud/htmlviewer/-/raw/master/img/screenshot-comparison-view.webp]]>
+    </screenshot>
     <dependencies>
+        <php min-version="8.2" max-version="8.3" />
         <nextcloud min-version="28" max-version="28"/>
     </dependencies>
 </info>
