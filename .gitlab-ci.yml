@@ -16,6 +16,7 @@ Prepare:
     - if [ "${CI_COMMIT_REF_NAME}" != "stable" ] ; then APP_VERSION="${APP_VERSION}-build${CI_PIPELINE_ID}"; PACKAGE_NAME=htmlviewer-nightly ; fi
     - PACKAGE_REGISTRY_URL="${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/${PACKAGE_NAME}/${APP_VERSION}"
     - CHANGELOG=$(node --no-warnings scripts/extract-changelog.mjs)
+    - echo "PACKAGE_NAME=${PACKAGE_NAME}" >> variables.env
     - echo "APP_VERSION=${APP_VERSION}" >> variables.env
     - echo "PACKAGE_REGISTRY_URL=${PACKAGE_REGISTRY_URL}" >> variables.env
     - echo "CHANGELOG=${CHANGELOG}" >> variables.env
