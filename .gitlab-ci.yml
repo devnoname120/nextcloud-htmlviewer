@@ -11,9 +11,10 @@ Prepare:
   stage: prepare
   script:
     - PACKAGE_NAME=htmlviewer
+    - APP_ID=${PACKAGE_NAME}
     - APP_NAME="Html Viewer"
     - APP_VERSION=$(node -p "require('./package.json').version")
-    - if [ "${CI_COMMIT_REF_NAME}" != "stable" ] ; then APP_VERSION="${APP_VERSION}-build${CI_PIPELINE_ID}"; PACKAGE_NAME=htmlviewer-nightly ; fi
+    - if [ "${CI_COMMIT_REF_NAME}" != "stable" ] ; then APP_VERSION="${APP_VERSION}-build${CI_PIPELINE_ID}"; PACKAGE_NAME=${APP_ID}-nightly ; fi
     - PACKAGE_REGISTRY_URL="${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/${PACKAGE_NAME}/${APP_VERSION}"
     - CHANGELOG=$(node --no-warnings scripts/extract-changelog.mjs)
     - echo "PACKAGE_NAME=${PACKAGE_NAME}" >> variables.env
@@ -21,6 +22,7 @@ Prepare:
     - echo "PACKAGE_REGISTRY_URL=${PACKAGE_REGISTRY_URL}" >> variables.env
     - echo "CHANGELOG=${CHANGELOG}" >> variables.env
     - echo "APP_NAME=${APP_NAME}" >> variables.env
+    - echo "APP_ID=${APP_ID}" >> variables.env
   artifacts:
     expire_in: 1 week
     reports:
@@ -48,12 +50,12 @@ Assemble:
     - mkdir ${PACKAGE_NAME}
     - if [ "${CI_COMMIT_REF_NAME}" == "stable" ] ; then php scripts/set-version.php ; fi
     - if [ "${CI_COMMIT_REF_NAME}" != "stable" ] ; then php scripts/set-version.php --nightly --build "${CI_PIPELINE_ID}" ; fi
-    - rsync -r appinfo ${PACKAGE_NAME}
-    - rsync -r img ${PACKAGE_NAME}
-    - rsync -r js ${PACKAGE_NAME}
-    - rsync -r l10n ${PACKAGE_NAME}
-    - rsync -r lib ${PACKAGE_NAME}
-    - cp CHANGELOG.md ${PACKAGE_NAME}/
+    - rsync -r appinfo ${APP_ID}
+    - rsync -r img ${APP_ID}
+    - rsync -r js ${APP_ID}
+    - rsync -r l10n ${APP_ID}
+    - rsync -r lib ${APP_ID}
+    - cp CHANGELOG.md ${APP_ID}/
 #    - /usr/src/nextcloud/occ integrity:sign-app --path=$(pwd)/${PACKAGE_NAME} --privateKey=${SIGN_KEY} --certificate=${SIGN_CRT}
     - tar -zcf ${PACKAGE_NAME}.tar.gz ${PACKAGE_NAME}
     - SIGNATURE=$(openssl dgst -sha512 -sign ${SIGN_KEY} ./${PACKAGE_NAME}.tar.gz | openssl base64 | tr -d "\n")
