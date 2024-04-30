@@ -30,7 +30,7 @@ The app automatically configures the iframe with an CSP for [supported browsers]
 Both policies can be changed through config settings with the OCC commands shown below.
 Please be aware that the general CSP of your Nextcloud may still block some access regardless of what CSP and sandbox settings you configure.
 
-To change the CSP, use this occ command:
+To change the CSP or sandbox settings, use these occ commands:
 ```bash
  ./occ config:app:set htmlviewer csp --value=CustomCspSettings
  ./occ config:app:set htmlviewer sandbox --value=CustomSandboxSettings
