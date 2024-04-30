@@ -1,3 +1,4 @@
 ## 28.0.0 - Feature Release
 ### Added
-- Initial release with html viewer capability
+- View HTML files within Nextcloud
+- Compare HTML files with the Viewer app

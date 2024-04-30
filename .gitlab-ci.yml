@@ -91,7 +91,7 @@ Publish Nightly:
   environment:
     name: Testing
   only:
-#  - testing
+  - testing
   - never
 
 Publish Stable:

@@ -9,7 +9,7 @@ HTML files can be a great way to illustrate content in an interactive and respon
 The HTML viewer app enables the possibility to view static HTML files directly via an iframe within Nextcloud.
 
 ### Security information
-Loading HTML files within the context of Nextcloud carries a risk of exposing user information to third parties.
+Loading HTML files within the context of Nextcloud carries a risk of exposing user information to third parties, depending on the configuration of the server
 The HTML viewer app uses the sandbox and CSP features for iframes to disable JavaScript and prevent access to user information and websites outside your Nextcloud, but this can not guarantee that no information is ever transferred to third parties.
 
 Administrators should also be aware that some users may not be able to differentiate between the content of an HTML file they have opened and the normal user interface of Nextcloud.
