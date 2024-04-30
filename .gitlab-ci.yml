@@ -56,7 +56,7 @@ Assemble:
     - rsync -r l10n ${APP_ID}
     - rsync -r lib ${APP_ID}
     - cp CHANGELOG.md ${APP_ID}/
-#    - /usr/src/nextcloud/occ integrity:sign-app --path=$(pwd)/${APP_ID} --privateKey=${SIGN_KEY} --certificate=${SIGN_CRT}
+    - /usr/src/nextcloud/occ integrity:sign-app --path=$(pwd)/${APP_ID} --privateKey=${SIGN_KEY} --certificate=${SIGN_CRT}
     - tar -zcf ${PACKAGE_NAME}.tar.gz ${APP_ID}
     - SIGNATURE=$(openssl dgst -sha512 -sign ${SIGN_KEY} ./${PACKAGE_NAME}.tar.gz | openssl base64 | tr -d "\n")
     - echo "SIGNATURE=${SIGNATURE}" >> variables.env
