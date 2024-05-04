@@ -10,7 +10,7 @@
 
 <template>
     <div class="htmlviewer-content">
-        <iframe class="htmlviewer-iframe" referrerpolicy="no-referrer" credentialless="true" :sandbox="sandbox" :csp="csp" :src="file.content" v-if="file.loaded"/>
+        <iframe class="htmlviewer-iframe" referrerpolicy="no-referrer" credentialless="true" :sandbox="sandbox" :csp="csp" :src="file.content"/>
         <div class="htmlviewer-controls-container" v-if="showName">
             <div class="htmlviewer-controls">
                 {{ file.name }}
