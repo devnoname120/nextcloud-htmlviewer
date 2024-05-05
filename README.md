@@ -2,7 +2,7 @@
 > View static HTML files directly in Nextcloud
 
 HTML files can be a great way to illustrate content in an interactive and responsive format.
-The HTML viewer app enables the possibility to view static HTML files directly via an iframe within Nextcloud.
+The HTML viewer app enables viewing and editing of static HTML files directly within Nextcloud.
 
 ### Security information
 Loading HTML files within the context of Nextcloud carries a risk of exposing user information to third parties, depending on the configuration of the server.

@@ -11,7 +11,7 @@
 <template>
     <div class="htmlviewer-public-container" v-if="available">
         <NcModal :open.sync="showFile" :name="filename" size="full" :out-transition="true" @close="closing()" v-if="showFile">
-            <HTMLViewer :size="filesize" :source="downloadURL" :show-loading="true"/>
+            <HTMLViewer :size="filesize" :source="downloadURL" :show-loading="true" permissions="R"/>
         </NcModal>
         <div class="htmlviewer-cta">
             <NcButton :aria-label="t('View')" @click="showFile = true">
@@ -25,7 +25,6 @@
 </template>
 
 <script>
-    import HTMLViewer from "./HTMLViewer.vue";
     import NcButton from '@nextcloud/vue/dist/Components/NcButton.js';
     import EyeIcon from 'vue-material-design-icons/Eye.vue';
     import NcModal from '@nextcloud/vue/dist/Components/NcModal.js';
@@ -34,7 +33,7 @@
     export default {
         el        : '#htmlviewer-open',
         components: {
-            HTMLViewer,
+            HTMLViewer: () => import/* webpackChunkName: "HTMLViewer" */("./HTMLViewer.vue"),
             NcButton,
             EyeIcon,
             NcModal

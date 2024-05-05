@@ -1,3 +1,10 @@
+## 29.1.0 - Feature Release
+### Added
+- Editing HTML files
+### Changed
+- Optimized viewer script file size
+
+
 ## 29.0.0 - Feature Release
 ### Added
 - Nextcloud 29 Support

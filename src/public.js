@@ -12,12 +12,16 @@ import isPublicPage from './utils/isPublicPage.js';
 import Vue from "vue";
 import PublicPage from "./PublicPage.vue";
 import {translate} from '@nextcloud/l10n';
+import {generateFilePath} from "@nextcloud/router";
+
+// eslint-disable-next-line
+__webpack_public_path__ = generateFilePath(appName, '', 'js/');
 
 window.addEventListener('DOMContentLoaded', function() {
     const mimetypeElmt = document.getElementById('mimetype'),
           isHtml       = mimetypeElmt && mimetypeElmt.value === 'text/html';
 
-    mimetypeElmt.value = 'application/do-not-open';
+    mimetypeElmt.value = 'application/only-htmlviewer';
     if(!isPublicPage() || !isHtml) {
         return;
     }

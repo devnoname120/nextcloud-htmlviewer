@@ -49,6 +49,10 @@ export default class File {
         return this._content;
     }
 
+    get raw() {
+        return this._raw ?? this._content;
+    }
+
     get loaded() {
         return this._content !== null;
     }
@@ -57,30 +61,52 @@ export default class File {
         return this.size > loadState('htmlviewer', 'maxSize');
     }
 
+    get isSaved() {
+        return this._saved;
+    }
+
     constructor(name, source, size, version) {
         this._name = name;
         this._source = source;
         this._size = size;
         this._version = version;
         this._content = null;
+        this._raw = null;
+        this._saved = true;
     }
 
-    async loadContent() {
-        if(this.isLoaded || this.isTooBig) {
+    async loadContent(force = false) {
+        if((!force && this._content !== null) || this.isTooBig) {
             return this._content;
         }
 
         const response = await axios.get(this._source);
-        let content = response.data;
-
-        if(loadState('htmlviewer', 'allowJs')) {
-            let nonce = loadState('htmlviewer', 'nonce');
-            content = response.data.replace(/\<script/g, `<script nonce="${nonce}"`);
-        }
-
-        let blob = new Blob([content], {type: "text/html"});
-        this._content = URL.createObjectURL(blob);
+        this.setContent(response.data);
+        this._saved = true;
 
         return this._content;
+    }
+
+    setContent(data) {
+        if(loadState('htmlviewer', 'allowJs')) {
+            this._raw = data;
+            let nonce = loadState('htmlviewer', 'nonce');
+            data = data.replace(/\<script/g, `<script nonce="${nonce}"`);
+        } else {
+            this._raw = null;
+        }
+
+        let blob = new Blob([data], {type: "text/html"});
+        this._content = URL.createObjectURL(blob);
+        this._saved = false;
+    }
+
+    async save() {
+        const response = await axios.put(this._source, this.raw);
+
+        if(response.status > 299) {
+            throw new Error(response.statusText);
+        }
+        this._saved = true;
     }
 }
