@@ -1,3 +1,7 @@
+## 29.1.1 - Bugfix Release
+### Fixed
+- Close button for editor not working
+
 ## 29.1.0 - Feature Release
 ### Added
 - Editing HTML files
@@ -10,6 +14,10 @@
 - Add Spanish and Italian translations
 ### Removed
 - Nextcloud 28 Support
+
+## 28.1.1 - Bugfix Release
+### Fixed
+- Close button for editor not working
 
 ## 28.1.0 - Feature Release
 ### Added

@@ -21,7 +21,7 @@
                     <NcSavingIndicatorIcon :name="saveStateLabel" :error="saveState === 'error'" :saving="saveState === 'saving'"/>
                 </template>
             </NcButton>
-            <NcButton type="tertiary" :aria-label="closeLabel" @click="close()">
+            <NcButton type="tertiary" :aria-label="closeLabel" @click="close">
                 <template #icon>
                     <CloseIcon :size="20"/>
                 </template>
