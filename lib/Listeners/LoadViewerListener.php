@@ -58,7 +58,7 @@ class LoadViewerListener implements IEventListener {
      * @return void
      */
     protected function provideMaxFileSize(): void {
-        $maxSize = intval($this->config->getAppValue('maxSize', 32)) * 1024 * 1024;
+        $maxSize = $this->config->getAppValueInt('maxSize', 32) * 1024 * 1024;
         $this->initialState->provideInitialState('maxSize', $maxSize);
     }
 

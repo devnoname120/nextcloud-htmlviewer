@@ -16,13 +16,13 @@ Although security features like sandboxing, CSP and CORS limit what can be done,
 
 If you still wish to enable JS, this occ command will enable it:
 ```bash
-./occ config:app:set htmlviewer allowJs --value=1
+./occ config:app:set htmlviewer allowJs --value=true --type=boolean
 ```
 
 ### File Size Limit
 By default, the app will load HTML files up to 32MB. To change the file size, use this occ command:
 ```bash
- ./occ config:app:set htmlviewer maxSize --value=SizeInMegabyte
+./occ config:app:set htmlviewer maxSize --value=SizeInMegabyte
 ```
 
 ### Iframe Permissions
@@ -32,6 +32,6 @@ Please be aware that the general CSP of your Nextcloud may still block some acce
 
 To change the CSP or sandbox settings, use these occ commands:
 ```bash
- ./occ config:app:set htmlviewer csp --value=CustomCspSettings
- ./occ config:app:set htmlviewer sandbox --value=CustomSandboxSettings
+./occ config:app:set htmlviewer csp --value=CustomCspSettings
+./occ config:app:set htmlviewer sandbox --value=CustomSandboxSettings
 ```
