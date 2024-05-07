@@ -14,7 +14,7 @@ Prepare:
     - APP_ID=${PACKAGE_NAME}
     - APP_NAME="Html Viewer"
     - APP_VERSION=$(node -p "require('./package.json').version")
-    - if [ "${CI_COMMIT_REF_NAME}" != "stable" ] ; then APP_VERSION="${APP_VERSION}-build${CI_PIPELINE_ID}"; PACKAGE_NAME=${APP_ID}-nightly ; fi
+    - if [ "${CI_COMMIT_REF_NAME}" != "stable28" ] ; then APP_VERSION="${APP_VERSION}-build${CI_PIPELINE_ID}"; PACKAGE_NAME=${APP_ID}-nightly ; fi
     - PACKAGE_REGISTRY_URL="${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/${PACKAGE_NAME}/${APP_VERSION}"
     - CHANGELOG=$(node --no-warnings scripts/extract-changelog.mjs)
     - echo "PACKAGE_NAME=${PACKAGE_NAME}" >> variables.env
@@ -29,7 +29,7 @@ Prepare:
       dotenv: variables.env
   only:
     - testing
-    - stable
+    - stable28
 
 Compile:
   stage: compiling
@@ -42,14 +42,14 @@ Compile:
       - ./js/*
   only:
     - testing
-    - stable
+    - stable28
 
 Assemble:
   stage: assembling
   script:
     - mkdir ${PACKAGE_NAME}
-    - if [ "${CI_COMMIT_REF_NAME}" == "stable" ] ; then php scripts/set-version.php ; fi
-    - if [ "${CI_COMMIT_REF_NAME}" != "stable" ] ; then php scripts/set-version.php --nightly --build "${CI_PIPELINE_ID}" ; fi
+    - if [ "${CI_COMMIT_REF_NAME}" == "stable28" ] ; then php scripts/set-version.php ; fi
+    - if [ "${CI_COMMIT_REF_NAME}" != "stable28" ] ; then php scripts/set-version.php --nightly --build "${CI_PIPELINE_ID}" ; fi
     - rsync -r appinfo ${APP_ID}
     - rsync -r img ${APP_ID}
     - rsync -r js ${APP_ID}
@@ -70,7 +70,7 @@ Assemble:
       dotenv: variables.env
   only:
     - testing
-    - stable
+    - stable28
 
 Publish Package:
   stage: publishing
@@ -82,7 +82,7 @@ Publish Package:
         --description "description.txt" \
         --assets-link "{\"name\":\"${APP_NAME} ${APP_VERSION} (tar.gz)\",\"url\":\"${PACKAGE_URL}\",\"link_type\":\"package\"}"
   only:
-    - stable
+    - stable28
 
 Publish Nightly:
   stage: publishing
@@ -101,4 +101,4 @@ Publish Stable:
   environment:
     name: Stable
   only:
-  - stable
+  - stable28
