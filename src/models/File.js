@@ -50,7 +50,7 @@ export default class File {
     }
 
     get raw() {
-        return this._raw ?? this._content;
+        return this._raw;
     }
 
     get loaded() {
@@ -88,12 +88,11 @@ export default class File {
     }
 
     setContent(data) {
+        this._raw = data;
+
         if(loadState('htmlviewer', 'allowJs')) {
-            this._raw = data;
             let nonce = loadState('htmlviewer', 'nonce');
             data = data.replace(/\<script/g, `<script nonce="${nonce}"`);
-        } else {
-            this._raw = null;
         }
 
         let blob = new Blob([data], {type: "text/html"});
