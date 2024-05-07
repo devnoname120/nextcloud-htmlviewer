@@ -10,7 +10,7 @@
 
 <template>
     <div class="htmlviewer-container" :class="{'htmlviewer-has-editor': isEdit}">
-        <ContentEditor :file="file" v-if="file.loaded && this.isEdit"/>
+        <ContentEditor :file="file" v-if="file.loaded && this.isEdit" v-on:close="isEdit=false;"/>
         <ContentViewer :file="file" :show-name="isComparison" :show-edit="showEditButton" v-on:edit="isEdit=true;" v-if="file.loaded"/>
         <ErrorMessage :file="file" v-if="file.isTooBig"/>
         <WarningDialog v-on:abort="abort" v-on:confirm="ok" v-if="hasDialog"/>
