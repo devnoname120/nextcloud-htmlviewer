@@ -53,6 +53,11 @@ class CSPListener implements IEventListener {
     public function __construct(protected IAppConfig $config,) {
     }
 
+    /**
+     * @param Event $event
+     *
+     * @return void
+     */
     public function handle(Event $event): void {
         if(!$event instanceof AddContentSecurityPolicyEvent) {
             return;
