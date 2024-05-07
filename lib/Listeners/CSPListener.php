@@ -19,6 +19,20 @@ use OCP\Security\CSP\AddContentSecurityPolicyEvent;
 
 class CSPListener implements IEventListener {
 
+    protected const CSP_RULE_MAPPING
+        = [
+            'script-src'  => 'addAllowedScriptDomain',
+            'style-src'   => 'addAllowedStyleDomain',
+            'font-src'    => 'addAllowedFontDomain',
+            'img-src'     => 'addAllowedImageDomain',
+            'connect-src' => 'addAllowedConnectDomain',
+            'media-src'   => 'addAllowedMediaDomain',
+            'object-src'  => 'addAllowedObjectDomain',
+            'frame-src'   => 'addAllowedFrameDomain',
+            'worker-src'  => 'addAllowedWorkerSrcDomain',
+            'form-action' => 'addAllowedFormActionDomain'
+        ];
+
     public function __construct(protected IAppConfig $config,) {
     }
 
@@ -30,11 +44,58 @@ class CSPListener implements IEventListener {
         $csp = new EmptyContentSecurityPolicy();
         $csp->addAllowedFrameDomain('blob:');
 
-        if($this->config->getAppValue('allowJs') === '1' || str_contains($this->config->getAppValue('csp', ''), 'eval')) {
+        $customCsp = $this->config->getAppValueString('csp');
+        if($this->config->getAppValueBool('allowJs') || str_contains($customCsp, 'eval')) {
             $csp->allowEvalScript();
             $csp->allowEvalWasm();
         }
 
+        if(!empty($customCsp)) {
+            $csp = $this->applyCustomCSP($csp, $customCsp);
+        }
+
         $event->addPolicy($csp);
+    }
+
+    /**
+     * @param EmptyContentSecurityPolicy $csp
+     * @param string                     $customCsp
+     *
+     * @return EmptyContentSecurityPolicy
+     */
+    protected function applyCustomCSP(EmptyContentSecurityPolicy $csp, string $customCsp): EmptyContentSecurityPolicy {
+        $customCspRules = $this->getCustomCspRules($customCsp);
+
+        foreach($customCspRules as $type => $rules) {
+            if(!isset(self::CSP_RULE_MAPPING[ $type ])) {
+                continue;
+            }
+
+            $method = self::CSP_RULE_MAPPING[ $type ];
+            foreach($rules as $rule) {
+                $csp->{$method}($rule);
+            }
+        }
+
+        return $csp;
+    }
+
+    /**
+     * @param string $customCsp
+     *
+     * @return array
+     */
+    protected function getCustomCspRules(string $customCsp): array {
+        $parts    = explode(';', $customCsp);
+        $cspRules = [];
+
+        foreach($parts as $part) {
+            $rules = explode(' ', trim($part));
+            $type  = array_shift($rules);
+
+            $cspRules[ $type ] = $rules;
+        }
+
+        return $cspRules;
     }
 }

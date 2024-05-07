@@ -80,7 +80,7 @@ class LoadViewerListener implements IEventListener {
         $defaultCsp = "'default-src blob: data: ; style-src: \'unsafe-inline\' blob: data:";
         $defaultSandbox = '';
 
-        if($this->config->getAppValue('allowJs') === '1') {
+        if($this->config->getAppValueBool('allowJs')) {
             $this->initialState->provideInitialState('allowJs', true);
             $this->initialState->provideInitialState('nonce', $this->nonceManager->getNonce());
             $defaultCsp = "'default-src \'unsafe-eval\' \'unsafe-inline\' \'wasm-unsafe-eval\' blob: data:'";
@@ -89,10 +89,10 @@ class LoadViewerListener implements IEventListener {
             $this->initialState->provideInitialState('allowJs', false);
         }
 
-        $csp = $this->config->getAppValue('csp', $defaultCsp);
+        $csp = $this->config->getAppValueString('csp', $defaultCsp);
         $this->initialState->provideInitialState('csp', $csp);
 
-        $csp = $this->config->getAppValue('sandbox', $defaultSandbox);
+        $csp = $this->config->getAppValueString('sandbox', $defaultSandbox);
         $this->initialState->provideInitialState('sandbox', $csp);
     }
 }
