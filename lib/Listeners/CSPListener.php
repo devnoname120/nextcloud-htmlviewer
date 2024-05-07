@@ -33,6 +33,23 @@ class CSPListener implements IEventListener {
             'form-action' => 'addAllowedFormActionDomain'
         ];
 
+    protected const CSP_IGNORED_RULES
+        = [
+            "'self'",
+            "'unsafe-eval'",
+            "'wasm-unsafe-eval'",
+            "'unsafe-hashes'",
+            "'unsafe-inline'",
+            "'strict-dynamic'",
+            "'report-sample'",
+            "'inline-speculation-rules'",
+            "'none'",
+            'blob:',
+            'data:',
+            'mediastream:',
+            'filesystem:'
+        ];
+
     public function __construct(protected IAppConfig $config,) {
     }
 
@@ -73,6 +90,13 @@ class CSPListener implements IEventListener {
 
             $method = self::CSP_RULE_MAPPING[ $type ];
             foreach($rules as $rule) {
+                if(in_array($rule, self::CSP_IGNORED_RULES)) {
+                    continue;
+                }
+                if(str_starts_with($rule, 'nonce-') || str_starts_with($rule, 'sha256-') || str_starts_with($rule, 'sha384-') || str_starts_with($rule, 'sha512-')) {
+                    continue;
+                }
+
                 $csp->{$method}($rule);
             }
         }
