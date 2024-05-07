@@ -1,6 +1,7 @@
 ## 29.2.0 - Feature Release
 ### Added
 - Automatic Nextcloud CSP configuration
+- Download button for files too large to view
 ### Fixed
 - Editor not showing source code
 - Incorrect app icon colors 

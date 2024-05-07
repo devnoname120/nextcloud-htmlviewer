@@ -14,6 +14,7 @@
         'Edit "{file}"'                                                                    : '"{file}" bearbeiten',
         'Close editor'                                                                     : 'Editor schließen',
         'Save "{file}" and close editor'                                                   : '"{file}" speichern und Editor schließen',
-        'Undo changes'                                                                     : 'Änderungen rückgängig machen'
+        'Undo changes'                                                                     : 'Änderungen rückgängig machen',
+        'Download'                                                                         : 'Herunterladen'
     }, "nplurals=2; plural=(n != 1);");
 }());

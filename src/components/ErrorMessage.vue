@@ -9,7 +9,15 @@
   -->
 
 <template>
-    <div class="htmlviewer-error">{{ message }}</div>
+    <div class="htmlviewer-error">
+        {{ message }}
+        <NcButton class="htmlviewer-download" type="primary" :aria-label="download" :href="file.source" :download="file.name">
+            {{ download }}
+            <template #icon>
+                <DownloadIcon :size="20"/>
+            </template>
+        </NcButton>
+    </div>
 </template>
 
 <script>
@@ -18,8 +26,11 @@
     import {loadState} from "@nextcloud/initial-state";
     import {translate} from '@nextcloud/l10n';
     import File from '../models/File.js';
+    import NcButton from "@nextcloud/vue/dist/Components/NcButton.js";
+    import DownloadIcon from 'vue-material-design-icons/Download.vue';
 
     export default {
+        components: {NcButton, DownloadIcon},
         props   : {
             file: File
         },
@@ -31,6 +42,13 @@
                     'htmlviewer',
                     'The file "{file}" ({size}) exceeds the maximum allowed size of {maxSize}.',
                     {file: this.file.name, size: formatFileSize(this.file.size), maxSize}
+                );
+            },
+            download() {
+                return translate(
+                    'htmlviewer',
+                    'Download',
+                    {file: this.file.name}
                 );
             }
         }
@@ -44,5 +62,9 @@
     padding    : 2rem 1rem;
     font-size  : 1.25rem;
     box-sizing : border-box;
+
+    .htmlviewer-download {
+        margin: 2rem auto 1rem;
+    }
 }
 </style>

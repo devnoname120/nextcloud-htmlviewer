@@ -11,7 +11,7 @@
 <template>
     <div class="htmlviewer-public-container" v-if="available">
         <NcModal :open.sync="showFile" :name="filename" size="full" :out-transition="true" @close="closing()" v-if="showFile">
-            <HTMLViewer :size="filesize" :source="downloadURL" :show-loading="true" permissions="R"/>
+            <HTMLViewer :size="filesize" :basename="filename" :source="downloadURL" :show-loading="true" permissions="R"/>
         </NcModal>
         <div class="htmlviewer-cta">
             <NcButton :aria-label="t('View')" @click="showFile = true">

@@ -46,6 +46,10 @@
             fileVersion: {
                 type   : Number,
                 default: null
+            },
+            basename   : {
+                type   : String,
+                default: null
             }
         },
         data() {
