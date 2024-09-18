@@ -1,3 +1,9 @@
+## 30.0.0 - Feature Release
+### Added
+- Nextcloud 30 Support
+### Removed
+- Nextcloud 29 Support
+
 ## 29.2.0 - Feature Release
 ### Added
 - Automatic Nextcloud CSP configuration

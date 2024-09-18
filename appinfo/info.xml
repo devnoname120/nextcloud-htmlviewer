@@ -39,7 +39,7 @@ To change the CSP or sandbox settings, use these occ commands:
  ./occ config:app:set htmlviewer csp --value=CustomCspSettings
  ./occ config:app:set htmlviewer sandbox --value=CustomSandboxSettings
 ```]]></description>
-    <version>28.0.0</version>
+    <version>30.0.0</version>
     <licence>agpl</licence>
     <author mail="nc.passwords@mdns.eu" homepage="https://git.mdns.eu/nextcloud/htmlviewer">Marius David Wieschollek</author>
     <namespace>HtmlViewer</namespace>
@@ -53,6 +53,6 @@ To change the CSP or sandbox settings, use these occ commands:
     </screenshot>
     <dependencies>
         <php min-version="8.2" max-version="8.3" />
-        <nextcloud min-version="29" max-version="29"/>
+        <nextcloud min-version="30" max-version="30"/>
     </dependencies>
 </info>
