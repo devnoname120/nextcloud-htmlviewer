@@ -65,6 +65,7 @@ class CSPListener implements IEventListener {
 
         $csp = new EmptyContentSecurityPolicy();
         $csp->addAllowedFrameDomain('blob:');
+        $csp->addAllowedMediaDomain('data:');
 
         $customCsp = $this->config->getAppValueString('csp');
         if($this->config->getAppValueBool('allowJs') || str_contains($customCsp, 'eval')) {
