@@ -1,4 +1,4 @@
-## 29.2.0 - Bugfix Release
+## 29.2.1 - Bugfix Release
 ### Fixed
 - Embedded media not playing
 
