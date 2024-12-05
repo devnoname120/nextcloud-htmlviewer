@@ -3,6 +3,10 @@
 - Nextcloud 30 Support
 ### Removed
 - Nextcloud 29 Support
+ 
+## 29.2.1 - Bugfix Release
+### Fixed
+- Embedded media not playing
 
 ## 29.2.0 - Feature Release
 ### Added
