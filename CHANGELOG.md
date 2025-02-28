@@ -1,9 +1,15 @@
+## 31.0.0 - Feature Release
+### Added
+- Nextcloud 31 Support
+### Removed
+- Nextcloud 30 Support
+
 ## 30.0.0 - Feature Release
 ### Added
 - Nextcloud 30 Support
 ### Removed
 - Nextcloud 29 Support
- 
+
 ## 29.2.1 - Bugfix Release
 ### Fixed
 - Embedded media not playing
