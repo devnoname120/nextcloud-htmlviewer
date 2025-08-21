@@ -117,8 +117,8 @@ export default class File {
         }
 
         const linkRegex     = /<a [^>]+/gm,
-              targetRegex   = /target=['"]_blank/gm,
-              protocolRegex = /href=['"]https?:\/\//gm;
+              targetRegex   = /target=['"]?_blank/gm,
+              protocolRegex = /href=['"]?https?:\/\//gm;
         let match;
         while((match = linkRegex.exec(data)) !== null) {
             let link = match[0];
