@@ -23,6 +23,9 @@ If you still wish to enable JS, this occ command will enable it:
 ./occ config:app:set htmlviewer allowJs --value=1
 ```
 
+**Note:** If you set a custom CSP or Sandbox value, this feature may not work if your CSP/Sandbox values do not allow JS execution.
+However, you must still enable this feature if you use a custom CSO/Sandbox if you want to allow JS.
+
 ### File Size Limit
 By default, the app will load HTML files up to 32MB. To change the file size, use this occ command:
 ```bash
@@ -38,7 +41,17 @@ To change the CSP or sandbox settings, use these occ commands:
 ```bash
  ./occ config:app:set htmlviewer csp --value=CustomCspSettings
  ./occ config:app:set htmlviewer sandbox --value=CustomSandboxSettings
-```]]></description>
+```
+
+### Links
+By default, links in the HTML files can only be opened with CRTL+click.
+Links with the `target="_blank"` attribute can be enabled by setting a custom sandbox value that includes the permission `allow-popups`.
+Otherwise, the "newTabLinks" feature can be enabled to set the permissions automatically and convert any links without `target="_blank"` to include it.
+
+```bash
+./occ config:app:set htmlviewer newTabLinks --value=true --type=boolean
+```
+]]></description>
     <version>32.0.0</version>
     <licence>agpl</licence>
     <author mail="nc.passwords@mdns.eu" homepage="https://git.mdns.eu/nextcloud/htmlviewer">Marius David Wieschollek</author>
