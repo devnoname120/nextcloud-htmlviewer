@@ -1,3 +1,10 @@
+## 32.0.0 - Feature Release
+### Added
+- Nextcloud 32 Support
+- Modify links with target="_blank"
+### Removed
+- Nextcloud 31 Support
+
 ## 31.0.0 - Feature Release
 ### Added
 - Nextcloud 31 Support

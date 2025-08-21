@@ -89,11 +89,8 @@ export default class File {
 
     setContent(data) {
         this._raw = data;
-
-        if(loadState('htmlviewer', 'allowJs')) {
-            let nonce = loadState('htmlviewer', 'nonce');
-            data = data.replace(/\<script/g, `<script nonce="${nonce}"`);
-        }
+        data = this.#enableJS(data);
+        data = this.#modifyLinks(data);
 
         let blob = new Blob([data], {type: "text/html"});
         this._content = URL.createObjectURL(blob);
@@ -107,5 +104,46 @@ export default class File {
             throw new Error(response.statusText);
         }
         this._saved = true;
+    }
+
+    /**
+     *
+     * @param {String} data
+     * @return {String}
+     */
+    #modifyLinks(data) {
+        if(!loadState('htmlviewer', 'newTabLinks')) {
+            return data;
+        }
+
+        const linkRegex     = /<a [^>]+/gm,
+              targetRegex   = /target=['"]_blank/gm,
+              protocolRegex = /href=['"]https?:\/\//gm;
+        let match;
+        while((match = linkRegex.exec(data)) !== null) {
+            let link = match[0];
+            if(!link.match(targetRegex) && link.match(protocolRegex)) {
+                link += ' target="_blank"';
+
+                if(link.indexOf('rel=') === -1) {
+                    link += ' rel="noreferrer noopener"';
+                }
+                data = data.replace(match[0], link);
+            }
+        }
+        return data;
+    }
+
+    /**
+     *
+     * @param {String} data
+     * @return {String}
+     */
+    #enableJS(data) {
+        if(loadState('htmlviewer', 'allowJs')) {
+            let nonce = loadState('htmlviewer', 'nonce');
+            data = data.replace(/<script/g, `<script nonce="${nonce}"`);
+        }
+        return data;
     }
 }
