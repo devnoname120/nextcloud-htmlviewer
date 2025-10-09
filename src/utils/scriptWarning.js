@@ -16,7 +16,7 @@ import {generateUrl, getBaseUrl} from "@nextcloud/router";
 export default new class ScriptWarning {
 
     constructor() {
-        this._disableWarning = loadState('htmlviewer', 'disableWarning');
+        this._disableWarning = loadState('htmlviewer', 'disableWarning', false);
     }
 
     status() {
