@@ -5,7 +5,7 @@
 HTML files can be a great way to illustrate content in an interactive and responsive format.
 The HTML viewer app enables viewing and editing of static HTML files directly within Nextcloud.
 
-### Security information
+## Security information
 
 Loading HTML files within the context of Nextcloud carries a risk of exposing user information to third parties, depending on the configuration of the server.
 The HTML viewer app uses the sandbox and CSP features for iframes to disable JavaScript and prevent access to user information and websites outside your Nextcloud, but this can not guarantee
@@ -13,7 +13,22 @@ that no information is ever transferred to third parties.
 
 Administrators should also be aware that some users may not be able to differentiate between the content of an HTML file they have opened and the normal user interface of Nextcloud.
 
-### JavaScript
+## Support
+- [Matrix Chat](https://matrix.to/#/#htmlviewer:chat.passwordsapp.org)
+
+## Settings
+
+#### Enable Links
+
+By default, links in the HTML files can only be opened with CRTL+click.
+Links with the `target="_blank"` attribute can be enabled by setting a custom sandbox value that includes the permission `allow-popups`.
+Otherwise, the "newTabLinks" feature can be enabled to set the permissions automatically and convert any links without `target="_blank"` to include it.
+
+```bash
+./occ config:app:set htmlviewer newTabLinks --value=true --type=boolean
+```
+
+#### Enable JavaScript
 
 JavaScript for HTML files is disabled by default. Enabling it is a bad idea and we do not recommend this at all.
 Although security features like sandboxing, CSP and CORS limit what can be done, it still means that unknown code is being executed within Nextcloud.
@@ -27,7 +42,7 @@ If you still wish to enable JS, this occ command will enable it:
 **Note:** If you set a custom CSP or Sandbox value, this feature may not work if your CSP/Sandbox values do not allow JS execution.
 However, you must still enable this feature if you use a custom CSO/Sandbox if you want to allow JS.
 
-### File Size Limit
+#### Set File Size Limit
 
 By default, the app will load HTML files up to 32MB. To change the file size, use this occ command:
 
@@ -35,7 +50,7 @@ By default, the app will load HTML files up to 32MB. To change the file size, us
 ./occ config:app:set htmlviewer maxSize --value=SizeInMegabyte
 ```
 
-### CSP and Iframe Permissions
+#### Change CSP and Iframe Permissions
 
 The app automatically configures the iframe with an CSP for [supported browsers](https://caniuse.com/mdn-api_htmliframeelement_csp) and a sandbox to limit code execution and data access.
 Both policies can be changed through config settings with the OCC commands shown below.
@@ -50,13 +65,3 @@ To change the CSP or sandbox settings, use these occ commands:
 
 [Documentation of CSP directives.](https://developer.mozilla.org/docs/Web/HTTP/Reference/Headers/Content-Security-Policy#directives)
 [Documentation of Sandbox permissions.](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/iframe#sandbox)
-
-### Links
-
-By default, links in the HTML files can only be opened with CRTL+click.
-Links with the `target="_blank"` attribute can be enabled by setting a custom sandbox value that includes the permission `allow-popups`.
-Otherwise, the "newTabLinks" feature can be enabled to set the permissions automatically and convert any links without `target="_blank"` to include it.
-
-```bash
-./occ config:app:set htmlviewer newTabLinks --value=true --type=boolean
-```
