@@ -69,7 +69,7 @@ To change the CSP or sandbox settings, use these occ commands:
 [Documentation of CSP directives.](https://developer.mozilla.org/docs/Web/HTTP/Reference/Headers/Content-Security-Policy#directives)
 [Documentation of Sandbox permissions.](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/iframe#sandbox)
 ]]></description>
-    <version>32.0.0</version>
+    <version>32.0.1</version>
     <licence>agpl</licence>
     <author mail="nc.passwords@mdns.eu" homepage="https://git.mdns.eu/nextcloud/htmlviewer">Marius David Wieschollek</author>
     <namespace>HtmlViewer</namespace>
