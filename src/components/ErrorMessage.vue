@@ -31,10 +31,10 @@
 
     export default {
         components: {NcButton, DownloadIcon},
-        props   : {
+        props     : {
             file: File
         },
-        computed: {
+        computed  : {
             message() {
                 let maxSize = formatFileSize(loadState('htmlviewer', 'maxSize'));
 
@@ -62,9 +62,10 @@
     padding    : 2rem 1rem;
     font-size  : 1.25rem;
     box-sizing : border-box;
+    color      : var(--color-error-text);
 
     .htmlviewer-download {
-        margin: 2rem auto 1rem;
+        margin : 2rem auto 1rem;
     }
 }
 </style>

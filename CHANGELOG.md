@@ -1,3 +1,9 @@
+## 33.0.0 - Feature Release
+### Added
+- Nextcloud 33 Support
+### Removed
+- Nextcloud 32 Support
+
 ## 32.0.0 - Feature Release
 ### Added
 - Nextcloud 32 Support

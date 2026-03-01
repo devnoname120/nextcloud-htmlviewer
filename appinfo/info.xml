@@ -69,9 +69,9 @@ To change the CSP or sandbox settings, use these occ commands:
 [Documentation of CSP directives.](https://developer.mozilla.org/docs/Web/HTTP/Reference/Headers/Content-Security-Policy#directives)
 [Documentation of Sandbox permissions.](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/iframe#sandbox)
 ]]></description>
-    <version>32.0.1</version>
+    <version>33.0.0</version>
     <licence>agpl</licence>
-    <author mail="nc.passwords@mdns.eu" homepage="https://git.mdns.eu/nextcloud/htmlviewer">Marius David Wieschollek</author>
+    <author homepage="https://git.mdns.eu/nextcloud/htmlviewer">Marius David Wieschollek</author>
     <namespace>HtmlViewer</namespace>
     <category>files</category>
     <bugs>https://git.mdns.eu/nextcloud/htmlviewer</bugs>
@@ -83,7 +83,7 @@ To change the CSP or sandbox settings, use these occ commands:
         <![CDATA[https://git.mdns.eu/nextcloud/htmlviewer/-/raw/master/img/screenshot-comparison-view.webp]]>
     </screenshot>
     <dependencies>
-        <php min-version="8.2" max-version="8.4" />
-        <nextcloud min-version="32" max-version="32"/>
+        <php min-version="8.2" max-version="8.5" />
+        <nextcloud min-version="33" max-version="33"/>
     </dependencies>
 </info>

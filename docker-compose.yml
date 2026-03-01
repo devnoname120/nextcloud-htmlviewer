@@ -11,7 +11,7 @@ services:
       - MYSQL_USER=nextcloud
 
   app:
-    image: nextcloud:31-fpm
+    image: nextcloud:33-fpm
     links:
       - db
     depends_on:
