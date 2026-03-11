@@ -50,7 +50,7 @@ class LoadViewerListener implements IEventListener {
         Util::addScript(Application::APP_ID, 'htmlviewer-main', 'viewer');
         Util::addTranslations(Application::APP_ID);
         if($this->appManager->isEnabledForUser('text')) {
-            Util::addScript('text', null, Application::APP_ID);
+            Util::addScript('text', 'text-viewer', Application::APP_ID);
         }
     }
 
