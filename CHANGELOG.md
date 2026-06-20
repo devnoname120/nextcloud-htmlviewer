@@ -1,3 +1,10 @@
+## 34.0.0 - Feature Release
+### Added
+- Nextcloud 34 Support
+### Removed
+- Nextcloud 33 Support
+- Support for JS `eval`
+
 ## 33.0.0 - Feature Release
 ### Added
 - Nextcloud 33 Support

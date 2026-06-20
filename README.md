@@ -41,6 +41,7 @@ If you still wish to enable JS, this occ command will enable it:
 
 **Note:** If you set a custom CSP or Sandbox value, this feature may not work if your CSP/Sandbox values do not allow JS execution.
 However, you must still enable this feature if you use a custom CSO/Sandbox if you want to allow JS.
+As of Nextcloud 34, `eval()` and similar methods are no longer supported by Nextcloud and can't be enabled.
 
 #### Set File Size Limit
 

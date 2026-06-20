@@ -69,7 +69,6 @@ class CSPListener implements IEventListener {
 
         $customCsp = $this->config->getAppValueString('csp');
         if($this->config->getAppValueBool('allowJs') || str_contains($customCsp, 'eval')) {
-            $csp->allowEvalScript();
             $csp->allowEvalWasm();
         }
 
