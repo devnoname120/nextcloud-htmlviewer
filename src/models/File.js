@@ -100,6 +100,14 @@ export default class File {
         return this.size > loadState('htmlviewer', 'maxSize');
     }
 
+    get isTooBigForEditor() {
+        return this.size > loadState('htmlviewer', 'maxEditorSize');
+    }
+
+    get isTooBigForCodeEditor() {
+        return this.size > loadState('htmlviewer', 'maxCodeEditorSize');
+    }
+
     get isSaved() {
         return this._saved;
     }
@@ -120,20 +128,36 @@ export default class File {
         }
 
         const response = await axios.get(this._source);
-        this.setContent(response.data);
+        this.setRaw(response.data);
+        this.updatePreview();
         this._saved = true;
 
         return this._content;
     }
 
-    setContent(data) {
+    /**
+     * Set the unprocessed html source without updating the preview
+     *
+     * @param {String} data
+     */
+    setRaw(data) {
         this._raw = data;
-        data = enableJS(data);
+        this._saved = false;
+    }
+
+    /**
+     * Process the current html source and create a new preview url
+     */
+    updatePreview() {
+        let data = enableJS(this._raw);
         data = modifyLinks(data);
+
+        if(this._content !== null) {
+            URL.revokeObjectURL(this._content);
+        }
 
         let blob = new Blob([data], {type: "text/html"});
         this._content = URL.createObjectURL(blob);
-        this._saved = false;
     }
 
     async save() {

@@ -55,11 +55,22 @@ class LoadViewerListener implements IEventListener {
     }
 
     /**
+     * Provide the file size limits in bytes.
+     * The editor limit can't exceed the viewer limit and the code editor limit can't exceed the editor limit.
+     *
      * @return void
      */
     protected function provideMaxFileSize(): void {
-        $maxSize = $this->config->getAppValueInt('maxSize', 32) * 1024 * 1024;
+        $maxSize = max(0, $this->config->getAppValueInt('maxSize', 32)) * 1024 * 1024;
         $this->initialState->provideInitialState('maxSize', $maxSize);
+
+        $maxEditorSize = max(0, $this->config->getAppValueInt('maxEditorSize', 16)) * 1024 * 1024;
+        $maxEditorSize = min($maxEditorSize, $maxSize);
+        $this->initialState->provideInitialState('maxEditorSize', $maxEditorSize);
+
+        $maxCodeEditorSize = max(0, $this->config->getAppValueInt('maxCodeEditorSize', 5)) * 1024 * 1024;
+        $maxCodeEditorSize = min($maxCodeEditorSize, $maxEditorSize);
+        $this->initialState->provideInitialState('maxCodeEditorSize', $maxCodeEditorSize);
     }
 
     /**
