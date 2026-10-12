@@ -1,0 +1,81 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: htmlviewer\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Warning
+msgid "warning.title"
+msgstr "Atención"
+
+#. Opening HTML files in the browser can be a security risk. Do you want to proceed?
+msgid "warning.message"
+msgstr "Abrir archivos HTML en el navegador puede ser un riesgo para la seguridad. ¿Desea continuar?"
+
+#. Do not warn again
+msgid "warning.disable"
+msgstr "No volver a avisar"
+
+#. Cancel
+msgid "warning.cancel"
+msgstr "Anular"
+
+#. Ok
+msgid "warning.confirm"
+msgstr "Ok"
+
+#. Edit "{file}"
+msgid "viewer.edit"
+msgstr "Editar \"{file}\""
+
+#. The file "{file}" ({size}) exceeds the maximum allowed size of {maxSize}.
+msgid "viewer.file-too-large"
+msgstr "El archivo \"{file}\" ({size}) supera el tamaño de archivo permitido de {maxSize}."
+
+#. Download
+msgid "viewer.download"
+msgstr ""
+
+#. "{file}" is saved
+msgid "editor.state.saved"
+msgstr "\"{file}\" se guarda"
+
+#. Saving "{file}"
+msgid "editor.state.saving"
+msgstr "Guardando \"{file}\""
+
+#. Error saving "{file}"
+msgid "editor.state.error"
+msgstr "Error al guardar \"{file}\""
+
+#. Save "{file}"
+msgid "editor.state.unsaved"
+msgstr "Guardar \"{file}\""
+
+#. Close editor
+msgid "editor.close"
+msgstr "Cerrar editor"
+
+#. Save "{file}" and close editor
+msgid "editor.save-and-close"
+msgstr "Guardar \"{file}\" y cerrar el editor"
+
+#. Undo changes
+msgid "editor.undo"
+msgstr "Deshacer cambios"
+
+#. Wrap long lines
+msgid "editor.line-wrapping"
+msgstr ""
+
+#. The file "{file}" ({size}) exceeds the maximum size of {maxSize} for editing.
+msgid "editor.too-large"
+msgstr ""
+
+#. The file "{file}" ({size}) exceeds the maximum size of {maxSize} for the code editor. Syntax highlighting and other editor features are not available.
+msgid "editor.too-large-for-code-editor"
+msgstr ""
+

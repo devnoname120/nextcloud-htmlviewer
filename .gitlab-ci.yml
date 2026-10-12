@@ -40,6 +40,7 @@ Compile:
     expire_in: 1 week
     paths:
       - ./js/*
+      - ./l10n/*
   only:
     - testing
     - stable

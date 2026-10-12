@@ -24,7 +24,7 @@
 
     import {formatFileSize} from "@nextcloud/files";
     import {loadState} from "@nextcloud/initial-state";
-    import {translate} from '@nextcloud/l10n';
+    import {t} from '../utils/l10n.js';
     import File from '../models/File.js';
     import NcButton from "@nextcloud/vue/components/NcButton";
     import NcIconSvgWrapper from "@nextcloud/vue/components/NcIconSvgWrapper";
@@ -42,18 +42,13 @@
             message() {
                 let maxSize = formatFileSize(loadState('htmlviewer', 'maxSize'));
 
-                return translate(
-                    'htmlviewer',
-                    'The file "{file}" ({size}) exceeds the maximum allowed size of {maxSize}.',
+                return t(
+                    'viewer.file-too-large',
                     {file: this.file.name, size: formatFileSize(this.file.size), maxSize}
                 );
             },
             download() {
-                return translate(
-                    'htmlviewer',
-                    'Download',
-                    {file: this.file.name}
-                );
+                return t('viewer.download');
             }
         }
     };

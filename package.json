@@ -14,6 +14,8 @@
         "dev": "webpack --node-env development --progress",
         "watch": "webpack --node-env development --progress --watch",
         "serve": "webpack --node-env development serve --progress",
+        "l10n:build": "node scripts/l10n.mjs build",
+        "l10n:sync": "node scripts/l10n.mjs sync",
         "lint": "eslint --ext .js,.vue src",
         "lint:fix": "eslint --ext .js,.vue src --fix",
         "stylelint": "stylelint css/*.css css/*.scss src/**/*.scss src/**/*.vue",
@@ -47,6 +49,7 @@
         "@nextcloud/vue": "9.13.1",
         "@nextcloud/webpack-vue-config": "7.0.4",
         "codemirror": "6.0.2",
+        "gettext-parser": "9.1.1",
         "vue": "3.5.43",
         "vue-loader": "17.4.2"
     }

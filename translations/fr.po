@@ -1,0 +1,81 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: htmlviewer\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Warning
+msgid "warning.title"
+msgstr "Alerte"
+
+#. Opening HTML files in the browser can be a security risk. Do you want to proceed?
+msgid "warning.message"
+msgstr "Ouvrir des fichiers HTML dans le navigateur peut être un risque pour la sécurité. Vous souhaitez continuer ?"
+
+#. Do not warn again
+msgid "warning.disable"
+msgstr "Ne pas réitérer l'alerte"
+
+#. Cancel
+msgid "warning.cancel"
+msgstr "Annuler"
+
+#. Ok
+msgid "warning.confirm"
+msgstr "Ok"
+
+#. Edit "{file}"
+msgid "viewer.edit"
+msgstr "Modifier \"{file}\""
+
+#. The file "{file}" ({size}) exceeds the maximum allowed size of {maxSize}.
+msgid "viewer.file-too-large"
+msgstr "Le fichier « {file} » ({size}) dépasse la taille de fichier autorisée de {maxSize}."
+
+#. Download
+msgid "viewer.download"
+msgstr ""
+
+#. "{file}" is saved
+msgid "editor.state.saved"
+msgstr "\"{file}\" est sauvegardé"
+
+#. Saving "{file}"
+msgid "editor.state.saving"
+msgstr "Sauvegarde de \"{file}\""
+
+#. Error saving "{file}"
+msgid "editor.state.error"
+msgstr "Erreur lors de la sauvegarde de \"{file}\""
+
+#. Save "{file}"
+msgid "editor.state.unsaved"
+msgstr "Sauvegarder \"{file}\""
+
+#. Close editor
+msgid "editor.close"
+msgstr "Fermer l'éditeur"
+
+#. Save "{file}" and close editor
+msgid "editor.save-and-close"
+msgstr "Sauvegarder \"{file}\" et fermer l'éditeur"
+
+#. Undo changes
+msgid "editor.undo"
+msgstr "Annuler les modifications"
+
+#. Wrap long lines
+msgid "editor.line-wrapping"
+msgstr ""
+
+#. The file "{file}" ({size}) exceeds the maximum size of {maxSize} for editing.
+msgid "editor.too-large"
+msgstr ""
+
+#. The file "{file}" ({size}) exceeds the maximum size of {maxSize} for the code editor. Syntax highlighting and other editor features are not available.
+msgid "editor.too-large-for-code-editor"
+msgstr ""
+

@@ -76,3 +76,17 @@ To change the CSP or sandbox settings, use these occ commands:
 
 [Documentation of CSP directives.](https://developer.mozilla.org/docs/Web/HTTP/Reference/Headers/Content-Security-Policy#directives)
 [Documentation of Sandbox permissions.](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/iframe#sandbox)
+
+## Translations
+
+The translations are maintained as gettext files in `translations/`. Messages use language keys as `msgid`, the English texts are defined in `translations/en.po`.
+The Nextcloud translation files in `l10n/` are created from the PO files during the build and should not be edited.
+Missing translations fall back to the English text.
+
+To add a new text, add the key to `translations/en.po`, use it with the `t()` helper from `src/utils/l10n.js` and update the other PO files:
+
+```bash
+npm run l10n:sync
+```
+
+To add a new language, create an empty `translations/<language>.po` with the PO header and run `npm run l10n:sync`.

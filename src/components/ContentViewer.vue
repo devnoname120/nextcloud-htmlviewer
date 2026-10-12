@@ -27,7 +27,7 @@
 </template>
 
 <script>
-    import {translate} from '@nextcloud/l10n';
+    import {t} from '../utils/l10n.js';
     import {loadState} from "@nextcloud/initial-state";
     import File from "../models/File.js";
     import NcButton from "@nextcloud/vue/components/NcButton";
@@ -51,7 +51,7 @@
         },
         computed: {
             editLabel() {
-                return translate('htmlviewer', 'Edit "{file}"', {file: this.file.name});
+                return t('viewer.edit', {file: this.file.name});
             }
         }
     };

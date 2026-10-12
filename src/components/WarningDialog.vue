@@ -9,13 +9,13 @@
   -->
 
 <template>
-    <NcDialog :name="t('Warning')" no-close>
+    <NcDialog :name="t('warning.title')" no-close>
         <template #actions>
-            <NcCheckboxRadioSwitch v-model="disableWarning" type="switch">{{ t('Do not warn again') }}</NcCheckboxRadioSwitch>
-            <NcDialogButton @click="abort()" :label="t('Cancel')"/>
-            <NcDialogButton @click="ok()" :label="t('Ok')" variant="primary"/>
+            <NcCheckboxRadioSwitch v-model="disableWarning" type="switch">{{ t('warning.disable') }}</NcCheckboxRadioSwitch>
+            <NcDialogButton @click="abort()" :label="t('warning.cancel')"/>
+            <NcDialogButton @click="ok()" :label="t('warning.confirm')" variant="primary"/>
         </template>
-        {{ t('Opening HTML files in the browser can be a security risk. Do you want to proceed?') }}
+        {{ t('warning.message') }}
     </NcDialog>
 </template>
 
@@ -23,7 +23,7 @@
     import NcDialog from '@nextcloud/vue/components/NcDialog';
     import NcDialogButton from "@nextcloud/vue/components/NcDialogButton";
     import NcCheckboxRadioSwitch from "@nextcloud/vue/components/NcCheckboxRadioSwitch";
-    import {translate} from "@nextcloud/l10n";
+    import {t} from "../utils/l10n.js";
     import scriptWarning from "../utils/scriptWarning.js";
 
     export default {
@@ -39,9 +39,7 @@
             };
         },
         methods: {
-            t(s, v) {
-                return translate('htmlviewer', s, v);
-            },
+            t,
             abort() {
                 this.$emit('abort');
             },

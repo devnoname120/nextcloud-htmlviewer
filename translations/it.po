@@ -1,0 +1,81 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: htmlviewer\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Warning
+msgid "warning.title"
+msgstr "Attenzione"
+
+#. Opening HTML files in the browser can be a security risk. Do you want to proceed?
+msgid "warning.message"
+msgstr "L'apertura di file HTML nel browser può costituire un rischio per la sicurezza. Volete procedere?"
+
+#. Do not warn again
+msgid "warning.disable"
+msgstr "Non avvertire di nuovo"
+
+#. Cancel
+msgid "warning.cancel"
+msgstr "Annullamento"
+
+#. Ok
+msgid "warning.confirm"
+msgstr "Ok"
+
+#. Edit "{file}"
+msgid "viewer.edit"
+msgstr "Modificare \"{file}\""
+
+#. The file "{file}" ({size}) exceeds the maximum allowed size of {maxSize}.
+msgid "viewer.file-too-large"
+msgstr "Il file \"{file}\" ({size}) supera la dimensione massima consentita di {maxSize}."
+
+#. Download
+msgid "viewer.download"
+msgstr ""
+
+#. "{file}" is saved
+msgid "editor.state.saved"
+msgstr "\"{file}\" viene salvato"
+
+#. Saving "{file}"
+msgid "editor.state.saving"
+msgstr "Salvataggio di \"{file}\""
+
+#. Error saving "{file}"
+msgid "editor.state.error"
+msgstr "Errore nel salvataggio di \"{file}\""
+
+#. Save "{file}"
+msgid "editor.state.unsaved"
+msgstr "Salvare \"{file}\""
+
+#. Close editor
+msgid "editor.close"
+msgstr "Chiudere l'editor"
+
+#. Save "{file}" and close editor
+msgid "editor.save-and-close"
+msgstr "Salvare \"{file}\" e chiudere l'editor"
+
+#. Undo changes
+msgid "editor.undo"
+msgstr "Annullare le modifiche"
+
+#. Wrap long lines
+msgid "editor.line-wrapping"
+msgstr ""
+
+#. The file "{file}" ({size}) exceeds the maximum size of {maxSize} for editing.
+msgid "editor.too-large"
+msgstr ""
+
+#. The file "{file}" ({size}) exceeds the maximum size of {maxSize} for the code editor. Syntax highlighting and other editor features are not available.
+msgid "editor.too-large-for-code-editor"
+msgstr ""
+

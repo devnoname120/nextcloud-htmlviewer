@@ -49,7 +49,7 @@
     import File from "../models/File.js";
     import {formatFileSize} from "@nextcloud/files";
     import {loadState} from "@nextcloud/initial-state";
-    import {translate} from '@nextcloud/l10n';
+    import {t} from '../utils/l10n.js';
     import NcSavingIndicatorIcon from '@nextcloud/vue/components/NcSavingIndicatorIcon';
     import NcButton from "@nextcloud/vue/components/NcButton";
     import NcIconSvgWrapper from "@nextcloud/vue/components/NcIconSvgWrapper";
@@ -102,41 +102,39 @@
         },
         computed: {
             saveStateLabel() {
-                let text = '"{file}" is saved';
+                let vars = {file: this.file.name};
                 if(this.saveState === 'error') {
-                    text = 'Error saving "{file}"';
+                    return t('editor.state.error', vars);
                 } else if(this.saveState === 'saving') {
-                    text = 'Saving "{file}"';
+                    return t('editor.state.saving', vars);
                 } else if(!this.file.isSaved) {
-                    text = 'Save "{file}"';
+                    return t('editor.state.unsaved', vars);
                 }
 
-                return translate('htmlviewer', text, {file: this.file.name});
+                return t('editor.state.saved', vars);
             },
             closeLabel() {
                 if(this.file.isSaved) {
-                    return translate('htmlviewer', 'Close editor');
+                    return t('editor.close');
                 }
 
-                return translate('htmlviewer', 'Save "{file}" and close editor', {file: this.file.name});
+                return t('editor.save-and-close', {file: this.file.name});
             },
             undoLabel() {
-                return translate('htmlviewer', 'Undo changes');
+                return t('editor.undo');
             },
             lineWrappingLabel() {
-                return translate('htmlviewer', 'Wrap long lines');
+                return t('editor.line-wrapping');
             },
             tooBigForEditorText() {
-                return translate(
-                    'htmlviewer',
-                    'The file "{file}" ({size}) exceeds the maximum size of {maxSize} for editing.',
+                return t(
+                    'editor.too-large',
                     {file: this.file.name, size: formatFileSize(this.file.size), maxSize: formatFileSize(loadState('htmlviewer', 'maxEditorSize'))}
                 );
             },
             tooBigForCodeEditorText() {
-                return translate(
-                    'htmlviewer',
-                    'The file "{file}" ({size}) exceeds the maximum size of {maxSize} for the code editor. Syntax highlighting and other editor features are not available.',
+                return t(
+                    'editor.too-large-for-code-editor',
                     {file: this.file.name, size: formatFileSize(this.file.size), maxSize: formatFileSize(loadState('htmlviewer', 'maxCodeEditorSize'))}
                 );
             }

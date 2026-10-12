@@ -1,0 +1,81 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: htmlviewer\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Warning
+msgid "warning.title"
+msgstr "Warnung"
+
+#. Opening HTML files in the browser can be a security risk. Do you want to proceed?
+msgid "warning.message"
+msgstr "HTML-Dateien im Browser zu öffnen kann ein Sicherheitsrisiko sein. Trotzdem fortfahren?"
+
+#. Do not warn again
+msgid "warning.disable"
+msgstr "Nicht erneut warnen"
+
+#. Cancel
+msgid "warning.cancel"
+msgstr "Abbrechen"
+
+#. Ok
+msgid "warning.confirm"
+msgstr "Ok"
+
+#. Edit "{file}"
+msgid "viewer.edit"
+msgstr "\"{file}\" bearbeiten"
+
+#. The file "{file}" ({size}) exceeds the maximum allowed size of {maxSize}.
+msgid "viewer.file-too-large"
+msgstr "Die Datei \"{file}\" ({size}) überschreitet die erlaubte Dateigröße von {maxSize}."
+
+#. Download
+msgid "viewer.download"
+msgstr "Herunterladen"
+
+#. "{file}" is saved
+msgid "editor.state.saved"
+msgstr "\"{file}\" ist gespeichert"
+
+#. Saving "{file}"
+msgid "editor.state.saving"
+msgstr "\"{file}\" wird gespeichert"
+
+#. Error saving "{file}"
+msgid "editor.state.error"
+msgstr "Fehler beim Speichern von \"{file}\""
+
+#. Save "{file}"
+msgid "editor.state.unsaved"
+msgstr "\"{file}\" speichern"
+
+#. Close editor
+msgid "editor.close"
+msgstr "Editor schließen"
+
+#. Save "{file}" and close editor
+msgid "editor.save-and-close"
+msgstr "\"{file}\" speichern und Editor schließen"
+
+#. Undo changes
+msgid "editor.undo"
+msgstr "Änderungen rückgängig machen"
+
+#. Wrap long lines
+msgid "editor.line-wrapping"
+msgstr ""
+
+#. The file "{file}" ({size}) exceeds the maximum size of {maxSize} for editing.
+msgid "editor.too-large"
+msgstr ""
+
+#. The file "{file}" ({size}) exceeds the maximum size of {maxSize} for the code editor. Syntax highlighting and other editor features are not available.
+msgid "editor.too-large-for-code-editor"
+msgstr ""
+

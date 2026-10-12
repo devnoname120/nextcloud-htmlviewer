@@ -1,0 +1,62 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: htmlviewer\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "warning.title"
+msgstr "Warning"
+
+msgid "warning.message"
+msgstr "Opening HTML files in the browser can be a security risk. Do you want to proceed?"
+
+msgid "warning.disable"
+msgstr "Do not warn again"
+
+msgid "warning.cancel"
+msgstr "Cancel"
+
+msgid "warning.confirm"
+msgstr "Ok"
+
+msgid "viewer.edit"
+msgstr "Edit \"{file}\""
+
+msgid "viewer.file-too-large"
+msgstr "The file \"{file}\" ({size}) exceeds the maximum allowed size of {maxSize}."
+
+msgid "viewer.download"
+msgstr "Download"
+
+msgid "editor.state.saved"
+msgstr "\"{file}\" is saved"
+
+msgid "editor.state.saving"
+msgstr "Saving \"{file}\""
+
+msgid "editor.state.error"
+msgstr "Error saving \"{file}\""
+
+msgid "editor.state.unsaved"
+msgstr "Save \"{file}\""
+
+msgid "editor.close"
+msgstr "Close editor"
+
+msgid "editor.save-and-close"
+msgstr "Save \"{file}\" and close editor"
+
+msgid "editor.undo"
+msgstr "Undo changes"
+
+msgid "editor.line-wrapping"
+msgstr "Wrap long lines"
+
+msgid "editor.too-large"
+msgstr "The file \"{file}\" ({size}) exceeds the maximum size of {maxSize} for editing."
+
+msgid "editor.too-large-for-code-editor"
+msgstr "The file \"{file}\" ({size}) exceeds the maximum size of {maxSize} for the code editor. Syntax highlighting and other editor features are not available."
