@@ -60,3 +60,9 @@ msgstr "The file \"{file}\" ({size}) exceeds the maximum size of {maxSize} for e
 
 msgid "editor.too-large-for-code-editor"
 msgstr "The file \"{file}\" ({size}) exceeds the maximum size of {maxSize} for the code editor. Syntax highlighting and other editor features are not available."
+
+msgid "directEditing.close"
+msgstr "Close"
+
+msgid "directEditing.load-error"
+msgstr "The file \"{file}\" could not be loaded."

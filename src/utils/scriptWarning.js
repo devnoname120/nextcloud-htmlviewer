@@ -17,6 +17,8 @@ export default new class ScriptWarning {
 
     constructor() {
         this._disableWarning = loadState('htmlviewer', 'disableWarning', false);
+        // The direct editing page has no user session to save the setting with
+        this._canSave = !isPublicShare() && loadState('htmlviewer', 'directEditing', null) === null;
     }
 
     status() {
@@ -24,7 +26,7 @@ export default new class ScriptWarning {
     }
 
     disable() {
-        if(!isPublicShare() && !this._disableWarning) {
+        if(this._canSave && !this._disableWarning) {
             axios.post(generateUrl('/apps/htmlviewer/settings/warning'))
                  .catch(console.error);
         }

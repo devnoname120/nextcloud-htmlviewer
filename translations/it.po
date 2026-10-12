@@ -79,3 +79,11 @@ msgstr ""
 msgid "editor.too-large-for-code-editor"
 msgstr ""
 
+#. Close
+msgid "directEditing.close"
+msgstr ""
+
+#. The file "{file}" could not be loaded.
+msgid "directEditing.load-error"
+msgstr ""
+

@@ -30,6 +30,7 @@ class TranslationsPlugin {
     }
 }
 
+webpackConfig.entry.directEditing = path.resolve(__dirname, 'src', 'directEditing.js');
 webpackConfig.plugins.push(new TranslationsPlugin());
 
 module.exports = webpackConfig;

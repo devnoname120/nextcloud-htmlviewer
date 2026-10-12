@@ -11,7 +11,7 @@
 <template>
     <div class="htmlviewer-error">
         {{ message }}
-        <NcButton class="htmlviewer-download" variant="primary" :aria-label="download" :href="file.source" :download="file.name">
+        <NcButton class="htmlviewer-download" variant="primary" :aria-label="download" :href="file.source" :download="file.name" v-if="file.source">
             {{ download }}
             <template #icon>
                 <NcIconSvgWrapper :path="mdiDownload" :size="20"/>

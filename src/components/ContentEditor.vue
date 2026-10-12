@@ -10,8 +10,8 @@
 
 <template>
     <div class="htmlviewer-editor">
-        <!-- The controls are shown on the dark backdrop of the viewer, like the viewer header which also uses the dark theme -->
-        <div class="htmlviewer-editor-controls" data-theme-dark="true">
+        <!-- In the viewer the controls are shown on its dark backdrop, like the viewer header which also uses the dark theme -->
+        <div class="htmlviewer-editor-controls" :data-theme-dark="darkControls ? 'true' : null">
             <template v-if="!file.isTooBigForEditor">
                 <NcButton variant="tertiary" :aria-label="lineWrappingLabel" v-model:pressed="lineWrapping" v-if="!file.isTooBigForCodeEditor">
                     <template #icon>
@@ -76,8 +76,12 @@
             CodeEditor: defineAsyncComponent(() => import/* webpackChunkName: "CodeEditor" */("./CodeEditor.vue"))
         },
         props     : {
-            file    : File,
-            showName: Boolean
+            file        : File,
+            showName    : Boolean,
+            darkControls: {
+                type   : Boolean,
+                default: true
+            }
         },
         emits     : ['close'],
         data() {

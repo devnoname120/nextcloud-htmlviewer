@@ -127,8 +127,7 @@ export default class File {
             return this._content;
         }
 
-        const response = await axios.get(this._source);
-        this.setRaw(response.data);
+        this.setRaw(await this._download());
         this.updatePreview();
         this._saved = true;
 
@@ -161,11 +160,34 @@ export default class File {
     }
 
     async save() {
-        const response = await axios.put(this._source, this.raw);
+        await this._upload(this.raw);
+        this._saved = true;
+    }
+
+    /**
+     * Fetch the html source of the file
+     *
+     * @return {Promise<String>}
+     * @protected
+     */
+    async _download() {
+        const response = await axios.get(this._source);
+
+        return response.data;
+    }
+
+    /**
+     * Store the html source of the file
+     *
+     * @param {String} data
+     * @return {Promise<void>}
+     * @protected
+     */
+    async _upload(data) {
+        const response = await axios.put(this._source, data);
 
         if(response.status > 299) {
             throw new Error(response.statusText);
         }
-        this._saved = true;
     }
 }

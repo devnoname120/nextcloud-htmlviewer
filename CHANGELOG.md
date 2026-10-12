@@ -2,6 +2,7 @@
 ### Added
 - Nextcloud 35 Support
 - Code editor with syntax highlighting
+- Direct editing of HTML files in the Android and desktop apps
 ### Changed
 - Updated to Vue 3 and Nextcloud Vue 9
 - Viewer priority handling with Nextcloud Text app

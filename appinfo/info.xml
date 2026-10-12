@@ -63,6 +63,17 @@ The editor limit can't exceed `maxSize` and the code editor limit can't exceed t
 ./occ config:app:set htmlviewer maxCodeEditorSize --value=SizeInMegabyte --type=integer
 ```
 
+#### Direct Editing in the Mobile and Desktop Apps
+
+The app offers itself as editor for HTML files to the Nextcloud Android and desktop apps through the direct editing API.
+The Nextcloud Text app also offers to edit HTML files, but the clients use the HTML viewer when both apps are installed.
+The Nextcloud iOS app only supports a fixed list of editors and keeps using Text.
+To leave the direct editing of HTML files to the Text app, use this occ command:
+
+```bash
+./occ config:app:set htmlviewer directEditing --value=false --type=boolean
+```
+
 #### Change CSP and Iframe Permissions
 
 The app automatically configures the iframe with an CSP for [supported browsers](https://caniuse.com/mdn-api_htmliframeelement_csp) and a sandbox to limit code execution and data access.

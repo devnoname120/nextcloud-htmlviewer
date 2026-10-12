@@ -11,11 +11,9 @@
 
 namespace OCA\HtmlViewer\Listeners;
 
-use OC\Security\CSP\ContentSecurityPolicyNonceManager;
 use OCA\HtmlViewer\AppInfo\Application;
+use OCA\HtmlViewer\Service\ViewerStateServiceInterface;
 use OCA\Viewer\Event\LoadViewer;
-use OCP\AppFramework\Services\IAppConfig;
-use OCP\AppFramework\Services\IInitialState;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
 use OCP\Util;
@@ -23,10 +21,8 @@ use OCP\Util;
 class LoadViewerListener implements IEventListener {
 
     public function __construct(
-        protected                                   $userId,
-        protected ContentSecurityPolicyNonceManager $nonceManager,
-        protected IInitialState                     $initialState,
-        protected IAppConfig                        $config,
+        protected                             $userId,
+        protected ViewerStateServiceInterface $viewerState,
     ) {
     }
 
@@ -36,9 +32,7 @@ class LoadViewerListener implements IEventListener {
         }
 
         $this->addScripts();
-        $this->provideMaxFileSize();
-        $this->provideUserSettings();
-        $this->provideJavaScriptSettings();
+        $this->viewerState->provideViewerState($this->userId);
     }
 
     /**
@@ -47,71 +41,5 @@ class LoadViewerListener implements IEventListener {
     protected function addScripts(): void {
         Util::addScript(Application::APP_ID, 'htmlviewer-main', 'viewer');
         Util::addTranslations(Application::APP_ID);
-    }
-
-    /**
-     * Provide the file size limits in bytes.
-     * The editor limit can't exceed the viewer limit and the code editor limit can't exceed the editor limit.
-     *
-     * @return void
-     */
-    protected function provideMaxFileSize(): void {
-        $maxSize = max(0, $this->config->getAppValueInt('maxSize', 32)) * 1024 * 1024;
-        $this->initialState->provideInitialState('maxSize', $maxSize);
-
-        $maxEditorSize = max(0, $this->config->getAppValueInt('maxEditorSize', 16)) * 1024 * 1024;
-        $maxEditorSize = min($maxEditorSize, $maxSize);
-        $this->initialState->provideInitialState('maxEditorSize', $maxEditorSize);
-
-        $maxCodeEditorSize = max(0, $this->config->getAppValueInt('maxCodeEditorSize', 5)) * 1024 * 1024;
-        $maxCodeEditorSize = min($maxCodeEditorSize, $maxEditorSize);
-        $this->initialState->provideInitialState('maxCodeEditorSize', $maxCodeEditorSize);
-    }
-
-    /**
-     * @return void
-     */
-    protected function provideUserSettings(): void {
-        $disableWarning = false;
-        if($this->userId !== null) {
-            $disableWarning = intval($this->config->getUserValue($this->userId, 'disableWarning', 0));
-        }
-        $this->initialState->provideInitialState('disableWarning', $disableWarning === 1);
-    }
-
-    /**
-     * @return void
-     */
-    protected function provideJavaScriptSettings(): void {
-        $defaultCsp     = "default-src blob: data: ; style-src: 'unsafe-inline' blob: data:";
-        $defaultSandbox = '';
-
-        if($this->config->getAppValueBool('allowJs')) {
-            $this->initialState->provideInitialState('allowJs', true);
-            $this->initialState->provideInitialState('nonce', $this->nonceManager->getNonce());
-            $defaultCsp     = "default-src 'unsafe-eval' 'unsafe-inline' 'wasm-unsafe-eval' blob: data:";
-            $defaultSandbox = 'allow-scripts allow-presentation allow-modals allow-downloads';
-        } else {
-            $this->initialState->provideInitialState('allowJs', false);
-        }
-
-        $csp = $this->config->getAppValueString('csp', $defaultCsp);
-        $this->initialState->provideInitialState('csp', $csp);
-
-        $sandbox = $this->config->getAppValueString('sandbox', $defaultSandbox);
-        if($this->config->getAppValueBool('newTabLinks')) {
-            $sandboxTokens = preg_split('/\s+/', $sandbox, -1, PREG_SPLIT_NO_EMPTY);
-            foreach(['allow-popups', 'allow-popups-to-escape-sandbox'] as $token) {
-                if(!in_array($token, $sandboxTokens, true)) {
-                    $sandboxTokens[] = $token;
-                }
-            }
-            $sandbox = implode(' ', $sandboxTokens);
-            $this->initialState->provideInitialState('newTabLinks', true);
-        } else {
-            $this->initialState->provideInitialState('newTabLinks', false);
-        }
-
-        $this->initialState->provideInitialState('sandbox', $sandbox);
     }
 }

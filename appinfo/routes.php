@@ -22,5 +22,7 @@ declare(strict_types=1);
 return [
 	'routes' => [
 		['name' => 'settings#disableWarning', 'url' => '/settings/warning', 'verb' => 'POST'],
+		['name' => 'directEditing#read', 'url' => '/directEditing/content', 'verb' => 'GET'],
+		['name' => 'directEditing#write', 'url' => '/directEditing/content', 'verb' => 'PUT'],
 	]
 ];
