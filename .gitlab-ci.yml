@@ -58,11 +58,13 @@ Assemble:
     - cp CHANGELOG.md ${APP_ID}/
     - /usr/src/nextcloud/occ integrity:sign-app --path=$(pwd)/${APP_ID} --privateKey=${SIGN_KEY} --certificate=${SIGN_CRT}
     - tar -zcf ${PACKAGE_NAME}.tar.gz ${APP_ID}
-    - SIGNATURE=$(openssl dgst -sha512 -sign ${SIGN_KEY} ./${PACKAGE_NAME}.tar.gz | openssl base64 | tr -d "\n")
+    - openssl dgst -sha512 -sign ${SIGN_KEY} -out signature.sig ./${PACKAGE_NAME}.tar.gz
+    - SIGNATURE=$(openssl base64 -A -in signature.sig)
     - echo "SIGNATURE=${SIGNATURE}" >> variables.env
     - PACKAGE_URL="${PACKAGE_REGISTRY_URL}/${PACKAGE_NAME}.tar.gz"
     - echo "PACKAGE_URL=${PACKAGE_URL}" >> variables.env
     - 'curl --retry 5 --retry-all-errors --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file ./${PACKAGE_NAME}.tar.gz "${PACKAGE_URL}"'
+    - 'curl --retry 5 --retry-all-errors --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file ./signature.sig "${PACKAGE_URL}.sig"'
     - echo "Package available at ${PACKAGE_URL}"
   artifacts:
     expire_in: 1 week
@@ -80,7 +82,8 @@ Publish Package:
     - |
       release-cli create --name "${APP_NAME} ${APP_VERSION}" --tag-name ${APP_VERSION} \
         --description "description.txt" \
-        --assets-link "{\"name\":\"${APP_NAME} ${APP_VERSION} (tar.gz)\",\"url\":\"${PACKAGE_URL}\",\"link_type\":\"package\"}"
+        --assets-link "{\"name\":\"${APP_NAME} ${APP_VERSION} (tar.gz)\",\"url\":\"${PACKAGE_URL}\",\"link_type\":\"package\"}" \
+        --assets-link "{\"name\":\"${APP_NAME} ${APP_VERSION} (Signature)\",\"url\":\"${PACKAGE_URL}.sig\",\"link_type\":\"other\"}"
   only:
     - stable
 
