@@ -7,7 +7,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "PO-Revision-Date: 2026-10-12 18:38+0000\n"
-"Last-Translator: DeepL <noreply-mt-deepl@weblate.org>\n"
+"Last-Translator: Marius David Wieschollek <m.weblate@mdns.eu>\n"
 "Language-Team: German (formal) <https://weblate.passwordsapp.org/projects/"
 "htmlviewer/app/de@formal/>\n"
 "X-Generator: Weblate 2026.10\n"
@@ -73,19 +73,16 @@ msgid "editor.undo"
 msgstr "Änderungen rückgängig machen"
 
 #. Wrap long lines
-#, fuzzy
 msgid "editor.line-wrapping"
 msgstr "Lange Zeilen umbrechen"
 
 #. The file "{file}" ({size}) exceeds the maximum size of {maxSize} for editing.
-#, fuzzy
 msgid "editor.too-large"
 msgstr ""
-"Die Datei „{file}“ ({size}) überschreitet die maximale Größe von {maxSize} "
-"für die Bearbeitung."
+"Die Datei „{file}“ ({size}) überschreitet die maximale für die Bearbeitung "
+"zulässige Größe von {maxSize}."
 
 #. The file "{file}" ({size}) exceeds the maximum size of {maxSize} for the code editor. Syntax highlighting and other editor features are not available.
-#, fuzzy
 msgid "editor.too-large-for-code-editor"
 msgstr ""
 "Die Datei „{file}“ ({size}) überschreitet die maximale Größe von {maxSize} "
