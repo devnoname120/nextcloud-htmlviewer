@@ -5,7 +5,12 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"PO-Revision-Date: 2026-10-12 18:38+0000\n"
+"Last-Translator: DeepL <noreply-mt-deepl@weblate.org>\n"
+"Language-Team: Italian <https://weblate.passwordsapp.org/projects/htmlviewer/"
+"app/it/>\n"
+"X-Generator: Weblate 2026.10\n"
 
 #. Warning
 msgid "warning.title"
@@ -36,8 +41,9 @@ msgid "viewer.file-too-large"
 msgstr "Il file \"{file}\" ({size}) supera la dimensione massima consentita di {maxSize}."
 
 #. Download
+#, fuzzy
 msgid "viewer.download"
-msgstr ""
+msgstr "Scarica"
 
 #. "{file}" is saved
 msgid "editor.state.saved"
@@ -68,22 +74,30 @@ msgid "editor.undo"
 msgstr "Annullare le modifiche"
 
 #. Wrap long lines
+#, fuzzy
 msgid "editor.line-wrapping"
-msgstr ""
+msgstr "Avvolgere le linee lunghe"
 
 #. The file "{file}" ({size}) exceeds the maximum size of {maxSize} for editing.
+#, fuzzy
 msgid "editor.too-large"
 msgstr ""
+"Il file \"{file}\" ({size}) supera la dimensione massima consentita di "
+"{maxSize} per la modifica."
 
 #. The file "{file}" ({size}) exceeds the maximum size of {maxSize} for the code editor. Syntax highlighting and other editor features are not available.
+#, fuzzy
 msgid "editor.too-large-for-code-editor"
 msgstr ""
+"Il file \"{file}\" ({size}) supera la dimensione massima di {maxSize} "
+"consentita dall'editor di codice. L'evidenziazione della sintassi e altre "
+"funzionalità dell'editor non sono disponibili."
 
 #. Close
 msgid "directEditing.close"
 msgstr ""
 
 #. The file "{file}" could not be loaded.
+#, fuzzy
 msgid "directEditing.load-error"
-msgstr ""
-
+msgstr "Impossibile caricare il file \"{file}\"."
