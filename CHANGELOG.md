@@ -1,3 +1,20 @@
+## 35.0.0 - Feature Release
+### Added
+- Nextcloud 35 Support
+- Code editor with syntax highlighting
+### Changed
+- Updated to Vue 3 and Nextcloud Vue 9
+- Viewer priority handling with Nextcloud Text app
+### Fixed
+- Viewer freezing when links are opened in a new tab
+- Links opened in a new tab still being sandboxed
+- Editor buttons not visible in the viewer
+- Save errors not shown in the editor
+- "Do not warn again" not saved for users without admin rights
+### Removed
+- Nextcloud 34 Support
+- Legacy public share page
+
 ## 34.0.0 - Feature Release
 ### Added
 - Nextcloud 34 Support
