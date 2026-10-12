@@ -14,7 +14,6 @@ namespace OCA\HtmlViewer\Listeners;
 use OC\Security\CSP\ContentSecurityPolicyNonceManager;
 use OCA\HtmlViewer\AppInfo\Application;
 use OCA\Viewer\Event\LoadViewer;
-use OCP\App\IAppManager;
 use OCP\AppFramework\Services\IAppConfig;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\EventDispatcher\Event;
@@ -27,7 +26,6 @@ class LoadViewerListener implements IEventListener {
         protected                                   $userId,
         protected ContentSecurityPolicyNonceManager $nonceManager,
         protected IInitialState                     $initialState,
-        protected IAppManager                       $appManager,
         protected IAppConfig                        $config,
     ) {
     }
@@ -49,9 +47,6 @@ class LoadViewerListener implements IEventListener {
     protected function addScripts(): void {
         Util::addScript(Application::APP_ID, 'htmlviewer-main', 'viewer');
         Util::addTranslations(Application::APP_ID);
-        if($this->appManager->isEnabledForUser('text')) {
-            Util::addScript('text', 'text-viewer', Application::APP_ID);
-        }
     }
 
     /**

@@ -10,17 +10,19 @@
 
 import {generateFilePath} from '@nextcloud/router';
 import ViewerHandler from './ViewerHandler.js';
+import {claimViewerMimes} from './utils/handlerPriority.js';
 
 // eslint-disable-next-line
 __webpack_public_path__ = generateFilePath(appName, '', 'js/');
 
-OCA.Viewer.registerHandler(
-    {
-        id        : 'htmlviewer',
-        mimes     : [
-            'text/html'
-        ],
-        component : ViewerHandler,
-        canCompare: true
-    }
-);
+const handler = {
+    id        : 'htmlviewer',
+    mimes     : [
+        'text/html'
+    ],
+    component : ViewerHandler,
+    canCompare: true
+};
+
+OCA.Viewer.registerHandler(handler);
+claimViewerMimes(OCA.Viewer, handler.id, handler.mimes);
