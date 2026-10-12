@@ -46,18 +46,23 @@
 
     export default {
         props: {
-            modelValue: {
+            modelValue  : {
                 type    : String,
                 required: true
             },
-            disabled  : {
+            disabled    : {
                 type   : Boolean,
                 default: false
+            },
+            lineWrapping: {
+                type   : Boolean,
+                default: true
             }
         },
         emits: ['update:modelValue'],
         mounted() {
             this.editable = new Compartment();
+            this.wrapping = new Compartment();
             this.currentValue = this.modelValue;
             this.view = new EditorView(
                 {
@@ -69,7 +74,7 @@
                                 basicSetup,
                                 html(),
                                 theme,
-                                EditorView.lineWrapping,
+                                this.wrapping.of(this.lineWrapping ? EditorView.lineWrapping : []),
                                 this.editable.of(EditorView.editable.of(!this.disabled)),
                                 EditorView.updateListener.of((update) => {
                                     if(update.docChanged) {
@@ -97,6 +102,9 @@
             },
             disabled(value) {
                 this.view.dispatch({effects: this.editable.reconfigure(EditorView.editable.of(!value))});
+            },
+            lineWrapping(value) {
+                this.view.dispatch({effects: this.wrapping.reconfigure(value ? EditorView.lineWrapping : [])});
             }
         }
     };

@@ -13,6 +13,11 @@
         <!-- The controls are shown on the dark backdrop of the viewer, like the viewer header which also uses the dark theme -->
         <div class="htmlviewer-editor-controls" data-theme-dark="true">
             <template v-if="!file.isTooBigForEditor">
+                <NcButton variant="tertiary" :aria-label="lineWrappingLabel" v-model:pressed="lineWrapping" v-if="!file.isTooBigForCodeEditor">
+                    <template #icon>
+                        <NcIconSvgWrapper :path="lineWrapping ? mdiWrap : mdiWrapDisabled" :size="20"/>
+                    </template>
+                </NcButton>
                 <NcButton variant="tertiary" :aria-label="undoLabel" @click="undo" :disabled="file.isSaved || saveState === 'saving'">
                     <template #icon>
                         <NcIconSvgWrapper :path="mdiArrowULeftTop" :size="20"/>
@@ -35,7 +40,7 @@
             <NcNoteCard type="warning" :text="tooBigForCodeEditorText"/>
             <textarea v-model="model" :disabled="saveState === 'saving'"></textarea>
         </template>
-        <CodeEditor v-else v-model="model" :disabled="saveState === 'saving'"/>
+        <CodeEditor v-else v-model="model" :disabled="saveState === 'saving'" :line-wrapping="lineWrapping"/>
     </div>
 </template>
 
@@ -49,7 +54,8 @@
     import NcButton from "@nextcloud/vue/components/NcButton";
     import NcIconSvgWrapper from "@nextcloud/vue/components/NcIconSvgWrapper";
     import NcNoteCard from "@nextcloud/vue/components/NcNoteCard";
-    import {mdiArrowULeftTop, mdiClose} from '@mdi/js';
+    import {mdiArrowULeftTop, mdiClose, mdiWrap, mdiWrapDisabled} from '@mdi/js';
+    import editorSettings from "../utils/editorSettings.js";
 
     /**
      * The preview is updated at most once within this interval while the user is typing
@@ -78,6 +84,9 @@
             return {
                 mdiArrowULeftTop,
                 mdiClose,
+                mdiWrap,
+                mdiWrapDisabled,
+                lineWrapping  : editorSettings.lineWrapping,
                 model         : this.file.raw,
                 previewTimeout: null,
                 previewPending: false,
@@ -113,6 +122,9 @@
             },
             undoLabel() {
                 return translate('htmlviewer', 'Undo changes');
+            },
+            lineWrappingLabel() {
+                return translate('htmlviewer', 'Wrap long lines');
             },
             tooBigForEditorText() {
                 return translate(
@@ -205,6 +217,9 @@
             }
         },
         watch   : {
+            lineWrapping(value) {
+                editorSettings.lineWrapping = value;
+            },
             model(value) {
                 if(this.file.raw === value) {
                     return;

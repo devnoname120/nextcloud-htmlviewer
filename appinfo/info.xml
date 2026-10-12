@@ -53,6 +53,16 @@ By default, the app will load HTML files up to 32MB. To change the file size, us
 ./occ config:app:set htmlviewer maxSize --value=SizeInMegabyte
 ```
 
+#### Set Editor Size Limits
+
+Files up to 16MB can be edited. Files up to 5MB are edited in a code editor with syntax highlighting, larger files in a plain text field.
+The editor limit can't exceed `maxSize` and the code editor limit can't exceed the editor limit. To change the limits, use these occ commands:
+
+```bash
+./occ config:app:set htmlviewer maxEditorSize --value=SizeInMegabyte --type=integer
+./occ config:app:set htmlviewer maxCodeEditorSize --value=SizeInMegabyte --type=integer
+```
+
 #### Change CSP and Iframe Permissions
 
 The app automatically configures the iframe with an CSP for [supported browsers](https://caniuse.com/mdn-api_htmliframeelement_csp) and a sandbox to limit code execution and data access.
