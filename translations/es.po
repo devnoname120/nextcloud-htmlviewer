@@ -6,9 +6,10 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"PO-Revision-Date: 2026-10-12 18:38+0000\n"
+"PO-Revision-Date: 2026-10-13 21:26+0000\n"
 "Last-Translator: DeepL <noreply-mt-deepl@weblate.org>\n"
-"Language-Team: Spanish <https://weblate.passwordsapp.org/projects/htmlviewer/app/es/>\n"
+"Language-Team: Spanish <https://weblate.passwordsapp.org/projects/htmlviewer/"
+"app/es/>\n"
 "X-Generator: Weblate 2026.10\n"
 
 #. Warning
@@ -98,122 +99,173 @@ msgid "directEditing.load-error"
 msgstr "No se ha podido cargar el archivo «{file}»."
 
 #. HTML Viewer
+#, fuzzy
 msgid "admin.title"
-msgstr ""
+msgstr "Visor de HTML"
 
 #. Configure how HTML files are shown and edited. Changes are saved immediately.
+#, fuzzy
 msgid "admin.description"
 msgstr ""
+"Configura cómo se muestran y editan los archivos HTML. Los cambios se "
+"guardan al instante."
 
 #. Viewer
+#, fuzzy
 msgid "admin.section.viewer"
-msgstr ""
+msgstr "Visor"
 
 #. File size limits
+#, fuzzy
 msgid "admin.section.size"
-msgstr ""
+msgstr "Límites de tamaño de los archivos"
 
 #. Content security policy and sandbox
+#, fuzzy
 msgid "admin.section.policy"
-msgstr ""
+msgstr "Política de seguridad de contenidos y entorno aislado"
 
 #. The iframe which shows the HTML files is restricted by a CSP in supported browsers and a sandbox. The CSP of Nextcloud may still block content regardless of these settings. A custom policy must allow scripts for JavaScript to work.
+#, fuzzy
 msgid "admin.section.policy.description"
 msgstr ""
+"El iframe que muestra los archivos HTML está restringido por una política "
+"CSP en los navegadores compatibles y por un entorno aislado. Es posible que "
+"la política CSP de Nextcloud siga bloqueando contenido independientemente de "
+"esta configuración. Para que los scripts de JavaScript funcionen, es "
+"necesario que una política personalizada los permita."
 
 #. Open links in a new tab
+#, fuzzy
 msgid "admin.new-tab-links"
-msgstr ""
+msgstr "Abrir los enlaces en una pestaña nueva"
 
 #. Allows popups in the sandbox and opens all links in a new tab. Otherwise, links can only be opened with Ctrl+click.
+#, fuzzy
 msgid "admin.new-tab-links.hint"
 msgstr ""
+"Permite las ventanas emergentes en el entorno aislado y abre todos los "
+"enlaces en una nueva pestaña. De lo contrario, los enlaces solo se pueden "
+"abrir pulsando Ctrl+clic."
 
 #. Allow JavaScript
+#, fuzzy
 msgid "admin.allow-js"
-msgstr ""
+msgstr "Activar JavaScript"
 
 #. Not recommended: scripts in HTML files are unknown code which is executed within Nextcloud.
+#, fuzzy
 msgid "admin.allow-js.hint"
 msgstr ""
+"No recomendado: los scripts de los archivos HTML son código desconocido que "
+"se ejecuta dentro de Nextcloud."
 
 #. JavaScript is enabled. The sandbox and the CSP limit what scripts can do, but they can not guarantee that no user information is transferred to third parties.
+#, fuzzy
 msgid "admin.allow-js.warning"
 msgstr ""
+"JavaScript está activado. El entorno aislado y la política de seguridad de "
+"contenido (CSP) limitan lo que pueden hacer los scripts, pero no pueden "
+"garantizar que no se transfiera información del usuario a terceros."
 
 #. Direct editing in the mobile and desktop apps
+#, fuzzy
 msgid "admin.direct-editing"
-msgstr ""
+msgstr "Edición directa en las aplicaciones para móvil y ordenador"
 
 #. Offers the HTML viewer as editor for HTML files to the Android and desktop apps. Disable it to leave the direct editing of HTML files to the Text app.
+#, fuzzy
 msgid "admin.direct-editing.hint"
 msgstr ""
+"Ofrece el visor HTML como editor de archivos HTML en las aplicaciones para "
+"Android y de escritorio. Desactívalo para que la edición directa de archivos "
+"HTML se realice a través de la aplicación «Texto»."
 
 #. Maximum file size for viewing (MB)
+#, fuzzy
 msgid "admin.max-size"
-msgstr ""
+msgstr "Tamaño máximo del archivo para su visualización (MB)"
 
 #. Larger files are not shown and can only be downloaded.
+#, fuzzy
 msgid "admin.max-size.hint"
-msgstr ""
+msgstr "Los archivos de mayor tamaño no se muestran y solo se pueden descargar."
 
 #. Maximum file size for editing (MB)
+#, fuzzy
 msgid "admin.max-editor-size"
-msgstr ""
+msgstr "Tamaño máximo del archivo para su edición (MB)"
 
 #. Can not exceed the maximum file size for viewing.
+#, fuzzy
 msgid "admin.max-editor-size.hint"
-msgstr ""
+msgstr "No se puede superar el tamaño máximo del archivo para su visualización."
 
 #. Maximum file size for the code editor (MB)
+#, fuzzy
 msgid "admin.max-code-editor-size"
-msgstr ""
+msgstr "Tamaño máximo de archivo para el editor de código (MB)"
 
 #. Larger files are edited in a plain text field. Can not exceed the maximum file size for editing.
+#, fuzzy
 msgid "admin.max-code-editor-size.hint"
 msgstr ""
+"Los archivos más grandes se editan en un campo de texto sin formato. No se "
+"puede superar el tamaño máximo del archivo para su edición."
 
 #. Content security policy
+#, fuzzy
 msgid "admin.csp"
-msgstr ""
+msgstr "Política de seguridad de contenidos"
 
 #. Leave empty to use the default policy.
+#, fuzzy
 msgid "admin.csp.hint"
-msgstr ""
+msgstr "Délo en blanco para utilizar la política predeterminada."
 
 #. Sandbox permissions
+#, fuzzy
 msgid "admin.sandbox"
-msgstr ""
+msgstr "Permisos del entorno de pruebas"
 
 #. Permissions separated by spaces, like "allow-forms allow-modals". Leave empty to use the default permissions.
+#, fuzzy
 msgid "admin.sandbox.hint"
 msgstr ""
+"Permisos separados por espacios, como «allow-forms allow-modals». Déjalo en "
+"blanco para utilizar los permisos predeterminados."
 
 #. No permissions
+#, fuzzy
 msgid "admin.sandbox.none"
-msgstr ""
+msgstr "Sin permisos"
 
 #. Reset "{setting}" to default
+#, fuzzy
 msgid "admin.reset"
-msgstr ""
+msgstr "Restablecer «{configuración}» a los valores predeterminados"
 
 #. Setting saved
+#, fuzzy
 msgid "admin.saved"
-msgstr ""
+msgstr "Configuración guardada"
 
 #. Setting reset to default
+#, fuzzy
 msgid "admin.reset-done"
-msgstr ""
+msgstr "Restablecimiento de la configuración a los valores predeterminados"
 
 #. Could not save the setting
+#, fuzzy
 msgid "admin.save-failed"
-msgstr ""
+msgstr "No se ha podido guardar la configuración"
 
 #. The value is not valid
+#, fuzzy
 msgid "admin.invalid-value"
-msgstr ""
+msgstr "El valor no es válido"
 
 #. Enter a whole number of megabytes between 0 and {max}
+#, fuzzy
 msgid "admin.invalid-size"
-msgstr ""
-
+msgstr "Introduce un número entero de megabytes comprendido entre 0 y {max}"
