@@ -9,22 +9,22 @@
   -->
 
 <template>
-    <NcDialog :name="t('Warning')" :can-close="false">
+    <NcDialog :name="t('Warning')" no-close>
         <template #actions>
-            <NcCheckboxRadioSwitch :checked.sync="disableWarning" type="switch">{{ t('Do not warn again') }}</NcCheckboxRadioSwitch>
+            <NcCheckboxRadioSwitch v-model="disableWarning" type="switch">{{ t('Do not warn again') }}</NcCheckboxRadioSwitch>
             <NcDialogButton @click="abort()" :label="t('Cancel')"/>
-            <NcDialogButton @click="ok()" :label="t('Ok')" type="primary"/>
+            <NcDialogButton @click="ok()" :label="t('Ok')" variant="primary"/>
         </template>
         {{ t('Opening HTML files in the browser can be a security risk. Do you want to proceed?') }}
     </NcDialog>
 </template>
 
 <script>
-    import NcDialog from '@nextcloud/vue/dist/Components/NcDialog.js';
-    import NcDialogButton from "@nextcloud/vue/dist/Components/NcDialogButton.js";
-    import NcCheckboxRadioSwitch from "@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js";
+    import NcDialog from '@nextcloud/vue/components/NcDialog';
+    import NcDialogButton from "@nextcloud/vue/components/NcDialogButton";
+    import NcCheckboxRadioSwitch from "@nextcloud/vue/components/NcCheckboxRadioSwitch";
     import {translate} from "@nextcloud/l10n";
-    import scriptWarning from "../utils/scriptWarning";
+    import scriptWarning from "../utils/scriptWarning.js";
 
     export default {
         components: {
@@ -32,6 +32,7 @@
             NcDialogButton,
             NcCheckboxRadioSwitch
         },
+        emits     : ['abort', 'confirm'],
         data() {
             return {
                 disableWarning: scriptWarning.status()

@@ -9,9 +9,9 @@
  */
 
 import {loadState} from "@nextcloud/initial-state";
-import isPublicPage from './isPublicPage.js';
+import {isPublicShare} from '@nextcloud/sharing/public';
 import axios from "@nextcloud/axios";
-import {generateUrl, getBaseUrl} from "@nextcloud/router";
+import {generateUrl} from "@nextcloud/router";
 
 export default new class ScriptWarning {
 
@@ -24,11 +24,9 @@ export default new class ScriptWarning {
     }
 
     disable() {
-        if(!isPublicPage() && !this._disableWarning) {
-            axios.get(
-                getBaseUrl() +
-                generateUrl('/apps/htmlviewer/settings/warning')
-            );
+        if(!isPublicShare() && !this._disableWarning) {
+            axios.post(generateUrl('/apps/htmlviewer/settings/warning'))
+                 .catch(console.error);
         }
         this._disableWarning = true;
     }

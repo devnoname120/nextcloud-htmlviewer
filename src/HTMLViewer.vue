@@ -10,7 +10,7 @@
 
 <template>
     <div class="htmlviewer-container" :class="{'htmlviewer-has-editor': isEdit}">
-        <ContentEditor :file="file" v-if="file.loaded && this.isEdit" v-on:close="isEdit=false;"/>
+        <ContentEditor :file="file" v-if="file.loaded && isEdit" v-on:close="isEdit=false;"/>
         <ContentViewer :file="file" :show-name="isComparison" :show-edit="showEditButton" v-on:edit="isEdit=true;" v-if="file.loaded"/>
         <ErrorMessage :file="file" v-if="file.isTooBig"/>
         <WarningDialog v-on:abort="abort" v-on:confirm="ok" v-if="hasDialog"/>
@@ -19,10 +19,11 @@
 </template>
 
 <script>
+    import {defineAsyncComponent} from 'vue';
     import {loadState} from '@nextcloud/initial-state';
-    import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js';
+    import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon';
     import File from './models/File.js';
-    import scriptWarning from "./utils/scriptWarning";
+    import scriptWarning from "./utils/scriptWarning.js";
     import ErrorMessage from "./components/ErrorMessage.vue";
     import WarningDialog from "./components/WarningDialog.vue";
     import ContentViewer from "./components/ContentViewer.vue";
@@ -30,7 +31,7 @@
     export default {
         components: {
             ContentViewer,
-            ContentEditor: () => import/* webpackChunkName: "ContentEditor" */("./components/ContentEditor.vue"),
+            ContentEditor: defineAsyncComponent(() => import/* webpackChunkName: "ContentEditor" */("./components/ContentEditor.vue")),
             WarningDialog,
             ErrorMessage,
             NcLoadingIcon
@@ -50,8 +51,13 @@
             basename   : {
                 type   : String,
                 default: null
+            },
+            isComparison: {
+                type   : Boolean,
+                default: false
             }
         },
+        emits     : ['update:loaded', 'close'],
         data() {
             let file = new File(this.basename, this.source, this.size, this.fileVersion);
 
@@ -63,16 +69,8 @@
         },
         mounted() {
             this.loadFile().catch(console.error);
-            if(this.isComparison) {
-                let parentContainer = this.$parent.$el.querySelector('.viewer__content.viewer--split');
-                parentContainer.style.display = 'flex';
-                parentContainer.style.flexDirection = 'row-reverse';
-            }
         },
         computed: {
-            isComparison() {
-                return this.$parent.$el.querySelector('.viewer__content.viewer--split') !== null;
-            },
             showEditButton() {
                 return !this.isComparison && !this.isEdit && this.file.loaded && this.permissions.indexOf('W') !== -1;
             }
@@ -95,7 +93,7 @@
             },
             abort() {
                 this.hasDialog = false;
-                this.$parent.close();
+                this.$emit('close');
             },
             ok() {
                 this.hasDialog = false;
@@ -112,6 +110,13 @@
         }
     };
 </script>
+
+<style lang="scss">
+.htmlviewer-handler {
+    width  : 100% !important;
+    height : 100%;
+}
+</style>
 
 <style scoped lang="scss">
 .htmlviewer-container {

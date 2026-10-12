@@ -11,10 +11,10 @@
 <template>
     <div class="htmlviewer-error">
         {{ message }}
-        <NcButton class="htmlviewer-download" type="primary" :aria-label="download" :href="file.source" :download="file.name">
+        <NcButton class="htmlviewer-download" variant="primary" :aria-label="download" :href="file.source" :download="file.name">
             {{ download }}
             <template #icon>
-                <DownloadIcon :size="20"/>
+                <NcIconSvgWrapper :path="mdiDownload" :size="20"/>
             </template>
         </NcButton>
     </div>
@@ -26,13 +26,17 @@
     import {loadState} from "@nextcloud/initial-state";
     import {translate} from '@nextcloud/l10n';
     import File from '../models/File.js';
-    import NcButton from "@nextcloud/vue/dist/Components/NcButton.js";
-    import DownloadIcon from 'vue-material-design-icons/Download.vue';
+    import NcButton from "@nextcloud/vue/components/NcButton";
+    import NcIconSvgWrapper from "@nextcloud/vue/components/NcIconSvgWrapper";
+    import {mdiDownload} from '@mdi/js';
 
     export default {
-        components: {NcButton, DownloadIcon},
+        components: {NcButton, NcIconSvgWrapper},
         props     : {
             file: File
+        },
+        data() {
+            return {mdiDownload};
         },
         computed  : {
             message() {

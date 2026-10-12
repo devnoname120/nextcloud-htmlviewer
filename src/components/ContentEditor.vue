@@ -11,19 +11,19 @@
 <template>
     <div class="htmlviewer-editor">
         <div class="htmlviewer-editor-controls">
-            <NcButton type="tertiary" :aria-label="undoLabel" @click="undo" :disabled="file.isSaved || saveState === 'saving'">
+            <NcButton variant="tertiary" :aria-label="undoLabel" @click="undo" :disabled="file.isSaved || saveState === 'saving'">
                 <template #icon>
-                    <ArrowULeftTopIcon :size="20"/>
+                    <NcIconSvgWrapper :path="mdiArrowULeftTop" :size="20"/>
                 </template>
             </NcButton>
-            <NcButton type="tertiary" :aria-label="saveStateLabel" @click="save">
+            <NcButton variant="tertiary" :aria-label="saveStateLabel" @click="save">
                 <template #icon>
                     <NcSavingIndicatorIcon :name="saveStateLabel" :error="saveState === 'error'" :saving="saveState === 'saving'"/>
                 </template>
             </NcButton>
-            <NcButton type="tertiary" :aria-label="closeLabel" @click="close">
+            <NcButton variant="tertiary" :aria-label="closeLabel" @click="close">
                 <template #icon>
-                    <CloseIcon :size="20"/>
+                    <NcIconSvgWrapper :path="mdiClose" :size="20"/>
                 </template>
             </NcButton>
 
@@ -35,19 +35,22 @@
 <script>
     import File from "../models/File.js";
     import {translate} from '@nextcloud/l10n';
-    import NcSavingIndicatorIcon from '@nextcloud/vue/dist/Components/NcSavingIndicatorIcon.js';
-    import NcButton from "@nextcloud/vue/dist/Components/NcButton.js";
-    import CloseIcon from 'vue-material-design-icons/Close.vue';
-    import ArrowULeftTopIcon from 'vue-material-design-icons/ArrowULeftTop.vue';
+    import NcSavingIndicatorIcon from '@nextcloud/vue/components/NcSavingIndicatorIcon';
+    import NcButton from "@nextcloud/vue/components/NcButton";
+    import NcIconSvgWrapper from "@nextcloud/vue/components/NcIconSvgWrapper";
+    import {mdiArrowULeftTop, mdiClose} from '@mdi/js';
 
     export default {
-        components: {NcButton, NcSavingIndicatorIcon, CloseIcon, ArrowULeftTopIcon},
+        components: {NcButton, NcSavingIndicatorIcon, NcIconSvgWrapper},
         props     : {
             file    : File,
             showName: Boolean
         },
+        emits     : ['close'],
         data() {
             return {
+                mdiArrowULeftTop,
+                mdiClose,
                 model         : this.file.raw,
                 previewTimeout: null,
                 saveTimeout   : null,
@@ -55,7 +58,7 @@
                 saveState     : 'saved'
             };
         },
-        beforeDestroy() {
+        beforeUnmount() {
             if(!this.file.isSaved) {
                 this.save().catch(console.error);
             }

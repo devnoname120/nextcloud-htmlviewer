@@ -11,6 +11,45 @@
 import axios from "@nextcloud/axios";
 import {loadState} from "@nextcloud/initial-state";
 
+/**
+ *
+ * @param {String} data
+ * @return {String}
+ */
+function modifyLinks(data) {
+    if(!loadState('htmlviewer', 'newTabLinks')) {
+        return data;
+    }
+
+    const targetRegex   = /target=['"]?_blank/,
+          protocolRegex = /href=['"]?https?:\/\//;
+
+    return data.replace(/<a [^>]+/g, (link) => {
+        if(targetRegex.test(link) || !protocolRegex.test(link)) {
+            return link;
+        }
+
+        link += ' target="_blank"';
+        if(link.indexOf('rel=') === -1) {
+            link += ' rel="noreferrer noopener"';
+        }
+        return link;
+    });
+}
+
+/**
+ *
+ * @param {String} data
+ * @return {String}
+ */
+function enableJS(data) {
+    if(loadState('htmlviewer', 'allowJs')) {
+        let nonce = loadState('htmlviewer', 'nonce');
+        data = data.replace(/<script/g, `<script nonce="${nonce}"`);
+    }
+    return data;
+}
+
 export default class File {
 
     get name() {
@@ -89,8 +128,8 @@ export default class File {
 
     setContent(data) {
         this._raw = data;
-        data = this.#enableJS(data);
-        data = this.#modifyLinks(data);
+        data = enableJS(data);
+        data = modifyLinks(data);
 
         let blob = new Blob([data], {type: "text/html"});
         this._content = URL.createObjectURL(blob);
@@ -104,44 +143,5 @@ export default class File {
             throw new Error(response.statusText);
         }
         this._saved = true;
-    }
-
-    /**
-     *
-     * @param {String} data
-     * @return {String}
-     */
-    #modifyLinks(data) {
-        if(!loadState('htmlviewer', 'newTabLinks')) {
-            return data;
-        }
-
-        const targetRegex   = /target=['"]?_blank/,
-              protocolRegex = /href=['"]?https?:\/\//;
-
-        return data.replace(/<a [^>]+/g, (link) => {
-            if(targetRegex.test(link) || !protocolRegex.test(link)) {
-                return link;
-            }
-
-            link += ' target="_blank"';
-            if(link.indexOf('rel=') === -1) {
-                link += ' rel="noreferrer noopener"';
-            }
-            return link;
-        });
-    }
-
-    /**
-     *
-     * @param {String} data
-     * @return {String}
-     */
-    #enableJS(data) {
-        if(loadState('htmlviewer', 'allowJs')) {
-            let nonce = loadState('htmlviewer', 'nonce');
-            data = data.replace(/<script/g, `<script nonce="${nonce}"`);
-        }
-        return data;
     }
 }

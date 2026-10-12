@@ -17,9 +17,9 @@
             </div>
         </div>
         <div class="htmlviewer-edit-container" v-if="showEdit">
-            <NcButton type="secondary" :aria-label="editLabel" @click="$emit('edit')">
+            <NcButton variant="secondary" :aria-label="editLabel" @click="$emit('edit')">
                 <template #icon>
-                    <PencilIcon :size="20"/>
+                    <NcIconSvgWrapper :path="mdiPencil" :size="20"/>
                 </template>
             </NcButton>
         </div>
@@ -30,18 +30,21 @@
     import {translate} from '@nextcloud/l10n';
     import {loadState} from "@nextcloud/initial-state";
     import File from "../models/File.js";
-    import NcButton from "@nextcloud/vue/dist/Components/NcButton.js";
-    import PencilIcon from 'vue-material-design-icons/Pencil.vue';
+    import NcButton from "@nextcloud/vue/components/NcButton";
+    import NcIconSvgWrapper from "@nextcloud/vue/components/NcIconSvgWrapper";
+    import {mdiPencil} from '@mdi/js';
 
     export default {
-        components: {PencilIcon, NcButton},
+        components: {NcIconSvgWrapper, NcButton},
         props     : {
             file    : File,
             showName: Boolean,
             showEdit: Boolean
         },
+        emits     : ['edit'],
         data() {
             return {
+                mdiPencil,
                 sandbox: loadState('htmlviewer', 'sandbox'),
                 csp    : loadState('htmlviewer', 'csp')
             };

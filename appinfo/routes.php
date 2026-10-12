@@ -21,6 +21,6 @@ declare(strict_types=1);
  */
 return [
 	'routes' => [
-		['name' => 'settings#disableWarning', 'url' => '/settings/warning', 'verb' => 'GET'],
+		['name' => 'settings#disableWarning', 'url' => '/settings/warning', 'verb' => 'POST'],
 	]
 ];

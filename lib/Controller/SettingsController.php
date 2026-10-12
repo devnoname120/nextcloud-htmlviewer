@@ -13,6 +13,8 @@ namespace OCA\HtmlViewer\Controller;
 
 use OCA\HtmlViewer\AppInfo\Application;
 use OCP\AppFramework\Controller;
+use OCP\AppFramework\Http\Attribute\NoAdminRequired;
+use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Services\IAppConfig;
 use OCP\IRequest;
 
@@ -25,7 +27,10 @@ class SettingsController extends Controller {
         parent::__construct(Application::APP_ID, $request);
     }
 
-    public function disableWarning() {
-        $this->config->setUserValue($this->userId, 'disableWarning', 1);
+    #[NoAdminRequired]
+    public function disableWarning(): DataResponse {
+        $this->config->setUserValue($this->userId, 'disableWarning', '1');
+
+        return new DataResponse();
     }
 }

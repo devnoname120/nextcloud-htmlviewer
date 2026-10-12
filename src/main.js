@@ -9,6 +9,7 @@
  */
 
 import {generateFilePath} from '@nextcloud/router';
+import ViewerHandler from './ViewerHandler.js';
 
 // eslint-disable-next-line
 __webpack_public_path__ = generateFilePath(appName, '', 'js/');
@@ -19,7 +20,7 @@ OCA.Viewer.registerHandler(
         mimes     : [
             'text/html'
         ],
-        component : () => import/* webpackChunkName: "HTMLViewer" */("./HTMLViewer.vue"),
+        component : ViewerHandler,
         canCompare: true
     }
 );
