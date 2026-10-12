@@ -116,22 +116,20 @@ export default class File {
             return data;
         }
 
-        const linkRegex     = /<a [^>]+/gm,
-              targetRegex   = /target=['"]?_blank/gm,
-              protocolRegex = /href=['"]?https?:\/\//gm;
-        let match;
-        while((match = linkRegex.exec(data)) !== null) {
-            let link = match[0];
-            if(!link.match(targetRegex) && link.match(protocolRegex)) {
-                link += ' target="_blank"';
+        const targetRegex   = /target=['"]?_blank/,
+              protocolRegex = /href=['"]?https?:\/\//;
 
-                if(link.indexOf('rel=') === -1) {
-                    link += ' rel="noreferrer noopener"';
-                }
-                data = data.replace(match[0], link);
+        return data.replace(/<a [^>]+/g, (link) => {
+            if(targetRegex.test(link) || !protocolRegex.test(link)) {
+                return link;
             }
-        }
-        return data;
+
+            link += ' target="_blank"';
+            if(link.indexOf('rel=') === -1) {
+                link += ' rel="noreferrer noopener"';
+            }
+            return link;
+        });
     }
 
     /**

@@ -93,8 +93,14 @@ class LoadViewerListener implements IEventListener {
         $this->initialState->provideInitialState('csp', $csp);
 
         $sandbox = $this->config->getAppValueString('sandbox', $defaultSandbox);
-        if($this->config->getAppValueBool('newTabLinks') && str_contains($sandbox, 'allow-popups') === false) {
-            $sandbox .= ' allow-popups';
+        if($this->config->getAppValueBool('newTabLinks')) {
+            $sandboxTokens = preg_split('/\s+/', $sandbox, -1, PREG_SPLIT_NO_EMPTY);
+            foreach(['allow-popups', 'allow-popups-to-escape-sandbox'] as $token) {
+                if(!in_array($token, $sandboxTokens, true)) {
+                    $sandboxTokens[] = $token;
+                }
+            }
+            $sandbox = implode(' ', $sandboxTokens);
             $this->initialState->provideInitialState('newTabLinks', true);
         } else {
             $this->initialState->provideInitialState('newTabLinks', false);
