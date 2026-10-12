@@ -135,6 +135,7 @@ appstore:
 	--exclude="../$(app_name)/*.log" \
 	--exclude="../$(app_name)/phpunit*xml" \
 	--exclude="../$(app_name)/composer.*" \
+	--exclude="../$(app_name)/vendor" \
 	--exclude="../$(app_name)/node_modules" \
 	--exclude="../$(app_name)/js/node_modules" \
 	--exclude="../$(app_name)/js/tests" \
@@ -160,7 +161,9 @@ appstore:
 	--exclude="../$(app_name)/docker" \
 	../$(app_name) \
 
+# Runs the PHP unit tests in the Nextcloud container of the docker compose setup.
+# The app is mounted read-only in that container, so the dependencies are installed by a separate container.
 .PHONY: test
-test: composer
-	$(CURDIR)/vendor/phpunit/phpunit/phpunit -c phpunit.xml
-	$(CURDIR)/vendor/phpunit/phpunit/phpunit -c phpunit.integration.xml
+test:
+	docker compose run --rm --no-deps -u "$$(id -u):$$(id -g)" -v "$(CURDIR):/src" -w /src --entrypoint composer app install --no-interaction
+	docker compose exec app php /app/vendor/bin/phpunit -c /app/tests/phpunit.xml

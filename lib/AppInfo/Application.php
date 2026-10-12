@@ -16,6 +16,8 @@ namespace OCA\HtmlViewer\AppInfo;
 use OCA\HtmlViewer\Listeners\CSPListener;
 use OCA\HtmlViewer\Listeners\LoadViewerListener;
 use OCA\HtmlViewer\Listeners\RegisterDirectEditorListener;
+use OCA\HtmlViewer\Service\AssetService;
+use OCA\HtmlViewer\Service\AssetServiceInterface;
 use OCA\HtmlViewer\Service\DirectEditingService;
 use OCA\HtmlViewer\Service\DirectEditingServiceInterface;
 use OCA\HtmlViewer\Service\SettingsService;
@@ -51,6 +53,7 @@ class Application extends App implements IBootstrap {
         $context->registerServiceAlias(SettingsServiceInterface::class, SettingsService::class);
         $context->registerServiceAlias(ViewerStateServiceInterface::class, ViewerStateService::class);
         $context->registerServiceAlias(DirectEditingServiceInterface::class, DirectEditingService::class);
+        $context->registerServiceAlias(AssetServiceInterface::class, AssetService::class);
     }
 
     public function boot(IBootContext $context): void {

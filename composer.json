@@ -8,14 +8,28 @@
 			"name": "Marius David Wieschollek"
 		}
 	],
+	"require": {
+		"php": "^8.3"
+	},
 	"require-dev": {
-		"phpunit/phpunit": "^9",
+		"phpunit/phpunit": "^13",
 		"sabre/dav": "^4.1",
 		"sabre/xml": "^2.2",
 		"symfony/event-dispatcher": "^5.3.11",
-		"nextcloud/ocp": "dev-stable28",
+		"nextcloud/ocp": "dev-stable35",
 		"psalm/phar": "^5.17.0",
 		"nextcloud/coding-standard": "^v1.1.1"
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"OCA\\HtmlViewer\\": "lib/",
+			"OCA\\HtmlViewer\\Tests\\": "tests/",
+			"OCP\\": "vendor/nextcloud/ocp/OCP/",
+			"NCU\\": "vendor/nextcloud/ocp/NCU/"
+		},
+		"classmap": [
+			"tests/stubs/"
+		]
 	},
 	"scripts": {
 		"lint": "find . -name \\*.php -not -path './vendor/*' -print0 | xargs -0 -n1 php -l",
@@ -25,14 +39,15 @@
 		"psalm:update-baseline": "psalm.phar --threads=1 --update-baseline",
 		"psalm:update-baseline:force": "psalm.phar --threads=1 --update-baseline --set-baseline=tests/psalm-baseline.xml",
 		"psalm:clear": "psalm.phar --clear-cache && psalm --clear-global-cache",
-		"psalm:fix": "psalm.phar --alter --issues=InvalidReturnType,InvalidNullableReturnType,MissingParamType,InvalidFalsableReturnType"
+		"psalm:fix": "psalm.phar --alter --issues=InvalidReturnType,InvalidNullableReturnType,MissingParamType,InvalidFalsableReturnType",
+		"test:unit": "phpunit -c tests/phpunit.xml"
 	},
 	"config": {
 		"allow-plugins": {
 			"composer/package-versions-deprecated": true
 		},
 		"platform": {
-			"php": "8.0"
+			"php": "8.4.1"
 		}
 	}
 }

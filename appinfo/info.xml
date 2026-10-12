@@ -104,7 +104,7 @@ To change the CSP or sandbox settings, use these occ commands:
         <![CDATA[https://git.mdns.eu/nextcloud/htmlviewer/-/raw/master/img/screenshot-comparison-view.webp]]>
     </screenshot>
     <dependencies>
-        <php min-version="8.2" max-version="8.5" />
+        <php min-version="8.3" max-version="8.5" />
         <nextcloud min-version="35" max-version="35"/>
     </dependencies>
 </info>

@@ -11,7 +11,8 @@ services:
       - MYSQL_USER=nextcloud
 
   app:
-    image: nextcloud:35-fpm
+    build: ./docker/nextcloud
+    image: htmlviewer-nextcloud:35
     links:
       - db
     depends_on:

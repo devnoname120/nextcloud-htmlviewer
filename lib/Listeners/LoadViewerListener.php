@@ -11,18 +11,18 @@
 
 namespace OCA\HtmlViewer\Listeners;
 
-use OCA\HtmlViewer\AppInfo\Application;
+use OCA\HtmlViewer\Service\AssetServiceInterface;
 use OCA\HtmlViewer\Service\ViewerStateServiceInterface;
 use OCA\Viewer\Event\LoadViewer;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
-use OCP\Util;
 
 class LoadViewerListener implements IEventListener {
 
     public function __construct(
         protected                             $userId,
         protected ViewerStateServiceInterface $viewerState,
+        protected AssetServiceInterface       $assets,
     ) {
     }
 
@@ -31,15 +31,7 @@ class LoadViewerListener implements IEventListener {
             return;
         }
 
-        $this->addScripts();
+        $this->assets->loadViewerAssets();
         $this->viewerState->provideViewerState($this->userId);
-    }
-
-    /**
-     * @return void
-     */
-    protected function addScripts(): void {
-        Util::addScript(Application::APP_ID, 'htmlviewer-main', 'viewer');
-        Util::addTranslations(Application::APP_ID);
     }
 }

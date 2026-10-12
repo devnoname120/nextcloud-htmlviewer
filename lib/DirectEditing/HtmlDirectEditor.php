@@ -15,6 +15,7 @@ namespace OCA\HtmlViewer\DirectEditing;
 
 use OCA\HtmlViewer\AppInfo\Application;
 use OCA\HtmlViewer\Exception\InvalidTokenException;
+use OCA\HtmlViewer\Service\AssetServiceInterface;
 use OCA\HtmlViewer\Service\DirectEditingServiceInterface;
 use OCA\HtmlViewer\Service\ViewerStateServiceInterface;
 use OCP\AppFramework\Http\NotFoundResponse;
@@ -24,7 +25,6 @@ use OCP\AppFramework\Services\IInitialState;
 use OCP\DirectEditing\IEditor;
 use OCP\DirectEditing\IToken;
 use OCP\IRequest;
-use OCP\Util;
 
 /**
  * Editor for HTML files in the mobile and desktop clients.
@@ -39,6 +39,7 @@ class HtmlDirectEditor implements IEditor {
         protected ViewerStateServiceInterface   $viewerState,
         protected IInitialState                 $initialState,
         protected IRequest                      $request,
+        protected AssetServiceInterface         $assets,
     ) {
     }
 
@@ -82,8 +83,7 @@ class HtmlDirectEditor implements IEditor {
         $this->viewerState->provideViewerState($token->getUser());
         $this->initialState->provideInitialState('directEditing', $file);
 
-        Util::addScript(Application::APP_ID, 'htmlviewer-directEditing');
-        Util::addTranslations(Application::APP_ID);
+        $this->assets->loadDirectEditingAssets();
 
         return new TemplateResponse(Application::APP_ID, 'directEditing', [], TemplateResponse::RENDER_AS_BASE);
     }
