@@ -62,7 +62,7 @@ class ViewerStateService implements ViewerStateServiceInterface {
      * @return void
      */
     protected function provideJavaScriptSettings(): void {
-        $defaultCsp     = "default-src blob: data: ; style-src: 'unsafe-inline' blob: data:";
+        $defaultCsp     = "default-src blob: data: ; style-src 'unsafe-inline' blob: data:";
         $defaultSandbox = '';
 
         if($this->config->getAppValueBool('allowJs')) {

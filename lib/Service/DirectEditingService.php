@@ -32,7 +32,7 @@ class DirectEditingService implements DirectEditingServiceInterface {
     /**
      * Tokens are created by the direct editing manager with 64 characters of ISecureRandom::CHAR_HUMAN_READABLE
      */
-    protected const TOKEN_PATTERN = '/^[A-Za-z0-9]{64}$/';
+    protected const TOKEN_PATTERN = '/^[A-Za-z0-9]{64}$/D';
 
     public function __construct(
         protected IManager                 $directEditingManager,

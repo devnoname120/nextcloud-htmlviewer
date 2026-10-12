@@ -12,6 +12,8 @@
 - Editor buttons not visible in the viewer
 - Save errors not shown in the editor
 - "Do not warn again" not saved for users without admin rights
+- Inline styles blocked by the default CSP of the viewer
+- Nonces, hashes and empty values of a custom CSP added to the CSP of Nextcloud
 ### Removed
 - Nextcloud 34 Support
 - Legacy public share page

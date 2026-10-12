@@ -50,6 +50,13 @@ class CSPListener implements IEventListener {
             'filesystem:'
         ];
 
+    /**
+     * Nonces and hashes only apply to the page they were created for, so they are never added to the CSP of Nextcloud
+     */
+    protected const CSP_NONCE_OR_HASH_PATTERN = "/^'?(nonce|sha256|sha384|sha512)-/";
+
+    protected const CSP_EVAL_PATTERN = "/'(wasm-)?unsafe-eval'/";
+
     public function __construct(protected IAppConfig $config,) {
     }
 
@@ -68,7 +75,7 @@ class CSPListener implements IEventListener {
         $csp->addAllowedMediaDomain('data:');
 
         $customCsp = $this->config->getAppValueString('csp');
-        if($this->config->getAppValueBool('allowJs') || str_contains($customCsp, 'eval')) {
+        if($this->config->getAppValueBool('allowJs') || preg_match(self::CSP_EVAL_PATTERN, $customCsp) === 1) {
             $csp->allowEvalWasm();
         }
 
@@ -98,7 +105,7 @@ class CSPListener implements IEventListener {
                 if(in_array($rule, self::CSP_IGNORED_RULES)) {
                     continue;
                 }
-                if(str_starts_with($rule, 'nonce-') || str_starts_with($rule, 'sha256-') || str_starts_with($rule, 'sha384-') || str_starts_with($rule, 'sha512-')) {
+                if(preg_match(self::CSP_NONCE_OR_HASH_PATTERN, $rule) === 1) {
                     continue;
                 }
 
@@ -119,8 +126,11 @@ class CSPListener implements IEventListener {
         $cspRules = [];
 
         foreach($parts as $part) {
-            $rules = explode(' ', trim($part));
+            $rules = preg_split('/\s+/', trim($part), -1, PREG_SPLIT_NO_EMPTY);
             $type  = array_shift($rules);
+            if($type === null) {
+                continue;
+            }
 
             $cspRules[ $type ] = $rules;
         }
