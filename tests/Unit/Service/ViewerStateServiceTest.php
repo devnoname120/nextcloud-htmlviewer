@@ -14,10 +14,11 @@ declare(strict_types=1);
 namespace OCA\HtmlViewer\Tests\Unit\Service;
 
 use OC\Security\CSP\ContentSecurityPolicyNonceManager;
+use OCA\HtmlViewer\Dto\AppSettings;
 use OCA\HtmlViewer\Dto\FileSizeLimits;
+use OCA\HtmlViewer\Dto\IframePolicy;
 use OCA\HtmlViewer\Service\SettingsServiceInterface;
 use OCA\HtmlViewer\Service\ViewerStateService;
-use OCP\AppFramework\Services\IAppConfig;
 use OCP\AppFramework\Services\IInitialState;
 use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -29,11 +30,7 @@ use PHPUnit\Framework\TestCase;
 #[AllowMockObjectsWithoutExpectations]
 class ViewerStateServiceTest extends TestCase {
 
-    protected const DEFAULT_CSP = "default-src blob: data: ; style-src 'unsafe-inline' blob: data:";
-
-    protected const DEFAULT_JS_CSP = "default-src 'unsafe-eval' 'unsafe-inline' 'wasm-unsafe-eval' blob: data:";
-
-    protected const DEFAULT_JS_SANDBOX = 'allow-scripts allow-presentation allow-modals allow-downloads';
+    protected const SANDBOX = 'allow-scripts allow-modals';
 
     public function testProvidesFileSizeLimits(): void {
         $state = $this->provideState();
@@ -44,32 +41,22 @@ class ViewerStateServiceTest extends TestCase {
     }
 
     public function testProvidesSafeDefaults(): void {
-        $state = $this->provideState();
+        $state = $this->provideState(policy: new IframePolicy('default-csp', ''));
 
         $this->assertFalse($state['allowJs']);
         $this->assertArrayNotHasKey('nonce', $state);
-        $this->assertSame(self::DEFAULT_CSP, $state['csp']);
+        $this->assertSame('default-csp', $state['csp']);
         $this->assertSame('', $state['sandbox']);
         $this->assertFalse($state['newTabLinks']);
     }
 
     public function testProvidesJavaScriptSettings(): void {
-        $state = $this->provideState(bools: ['allowJs' => true]);
+        $state = $this->provideState(allowJs: true);
 
         $this->assertTrue($state['allowJs']);
         $this->assertSame('nonce-value', $state['nonce']);
-        $this->assertSame(self::DEFAULT_JS_CSP, $state['csp']);
-        $this->assertSame(self::DEFAULT_JS_SANDBOX, $state['sandbox']);
-    }
-
-    public function testCustomCspAndSandboxReplaceDefaults(): void {
-        $state = $this->provideState(
-            bools  : ['allowJs' => true],
-            strings: ['csp' => "default-src 'none'", 'sandbox' => 'allow-forms']
-        );
-
-        $this->assertSame("default-src 'none'", $state['csp']);
-        $this->assertSame('allow-forms', $state['sandbox']);
+        $this->assertSame('csp', $state['csp']);
+        $this->assertSame(self::SANDBOX, $state['sandbox']);
     }
 
     public static function newTabLinkSandboxes(): array {
@@ -84,56 +71,46 @@ class ViewerStateServiceTest extends TestCase {
 
     #[DataProvider('newTabLinkSandboxes')]
     public function testNewTabLinksAddPopupPermissions(string $sandbox, string $expected): void {
-        $state = $this->provideState(bools: ['newTabLinks' => true], strings: ['sandbox' => $sandbox]);
+        $state = $this->provideState(newTabLinks: true, policy: new IframePolicy('csp', $sandbox));
 
         $this->assertTrue($state['newTabLinks']);
         $this->assertSame($expected, $state['sandbox']);
     }
 
-    public function testNewTabLinksExtendJavaScriptSandbox(): void {
-        $state = $this->provideState(bools: ['allowJs' => true, 'newTabLinks' => true]);
-
-        $this->assertSame(self::DEFAULT_JS_SANDBOX.' allow-popups allow-popups-to-escape-sandbox', $state['sandbox']);
-    }
-
     public function testWarningIsShownForPublicShares(): void {
-        $config = $this->createConfig();
-        $config->expects($this->never())->method('getUserValue');
+        $settings = $this->createSettings();
+        $settings->expects($this->never())->method('isScriptWarningDisabled');
 
-        $this->assertFalse($this->provideState(userId: null, config: $config)['disableWarning']);
+        $this->assertFalse($this->provideState(userId: null, settings: $settings)['disableWarning']);
     }
 
     public static function warningSettings(): array {
         return [
-            'not set'  => [null, false],
-            'disabled' => ['1', true],
-            'enabled'  => ['0', false],
-            'invalid'  => ['yes', false],
+            'disabled' => [true],
+            'enabled'  => [false],
         ];
     }
 
     #[DataProvider('warningSettings')]
-    public function testWarningSettingOfUser(?string $value, bool $expected): void {
-        $config = $this->createConfig();
-        $config->expects($this->once())
-               ->method('getUserValue')
-               ->with('alice', 'disableWarning', '0')
-               ->willReturnCallback(fn(string $userId, string $key, string $default) => $value ?? $default);
+    public function testWarningSettingOfUser(bool $disabled): void {
+        $settings = $this->createSettings();
+        $settings->expects($this->once())
+                 ->method('isScriptWarningDisabled')
+                 ->with('alice')
+                 ->willReturn($disabled);
 
-        $this->assertSame($expected, $this->provideState(userId: 'alice', config: $config)['disableWarning']);
+        $this->assertSame($disabled, $this->provideState(userId: 'alice', settings: $settings)['disableWarning']);
     }
 
     /**
-     * @param array<string, bool>   $bools
-     * @param array<string, string> $strings
-     *
      * @return array<string, mixed>
      */
     protected function provideState(
-        array       $bools = [],
-        array       $strings = [],
-        ?string     $userId = 'alice',
-        ?IAppConfig $config = null,
+        bool                                       $allowJs = false,
+        bool                                       $newTabLinks = false,
+        ?IframePolicy                              $policy = null,
+        ?string                                    $userId = 'alice',
+        (SettingsServiceInterface&MockObject)|null $settings = null,
     ): array {
         $state = [];
         $initialState = $this->createStub(IInitialState::class);
@@ -146,26 +123,20 @@ class ViewerStateServiceTest extends TestCase {
         $nonceManager = $this->createStub(ContentSecurityPolicyNonceManager::class);
         $nonceManager->method('getNonce')->willReturn('nonce-value');
 
-        $settings = $this->createStub(SettingsServiceInterface::class);
-        $settings->method('getFileSizeLimits')->willReturn(new FileSizeLimits(300, 200, 100));
+        $settings ??= $this->createSettings();
+        $settings->method('getAppSettings')->willReturn(new AppSettings($newTabLinks, $allowJs, true, 32, 16, 5, null, null));
+        $settings->method('getIframePolicy')->willReturn($policy ?? new IframePolicy('csp', self::SANDBOX));
 
-        $service = new ViewerStateService($nonceManager, $initialState, $config ?? $this->createConfig($bools, $strings), $settings);
+        $service = new ViewerStateService($nonceManager, $initialState, $settings);
         $service->provideViewerState($userId);
 
         return $state;
     }
 
-    /**
-     * @param array<string, bool>   $bools
-     * @param array<string, string> $strings
-     */
-    protected function createConfig(array $bools = [], array $strings = []): IAppConfig&MockObject {
-        $config = $this->createMock(IAppConfig::class);
-        $config->method('getAppValueBool')
-               ->willReturnCallback(fn(string $key, bool $default = false) => $bools[ $key ] ?? $default);
-        $config->method('getAppValueString')
-               ->willReturnCallback(fn(string $key, string $default = '') => $strings[ $key ] ?? $default);
+    protected function createSettings(): SettingsServiceInterface&MockObject {
+        $settings = $this->createMock(SettingsServiceInterface::class);
+        $settings->method('getFileSizeLimits')->willReturn(new FileSizeLimits(300, 200, 100));
 
-        return $config;
+        return $settings;
     }
 }

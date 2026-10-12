@@ -13,9 +13,10 @@ declare(strict_types=1);
 
 namespace OCA\HtmlViewer\Tests\Unit\Listeners;
 
+use OCA\HtmlViewer\Dto\AppSettings;
 use OCA\HtmlViewer\Listeners\CSPListener;
+use OCA\HtmlViewer\Service\SettingsServiceInterface;
 use OCP\AppFramework\Http\EmptyContentSecurityPolicy;
-use OCP\AppFramework\Services\IAppConfig;
 use OCP\EventDispatcher\Event;
 use OCP\Security\CSP\AddContentSecurityPolicyEvent;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -27,10 +28,10 @@ use ReflectionProperty;
 class CSPListenerTest extends TestCase {
 
     public function testIgnoresOtherEvents(): void {
-        $config = $this->createMock(IAppConfig::class);
-        $config->expects($this->never())->method($this->anything());
+        $settings = $this->createMock(SettingsServiceInterface::class);
+        $settings->expects($this->never())->method($this->anything());
 
-        (new CSPListener($config))->handle(new Event());
+        (new CSPListener($settings))->handle(new Event());
     }
 
     public function testDefaultPolicyAllowsBlobFramesAndDataMedia(): void {
@@ -139,10 +140,16 @@ class CSPListenerTest extends TestCase {
         $this->assertSame(['https://c.example'], $this->domains($csp, 'allowedImageDomains'));
     }
 
-    protected function handle(string $customCsp = '', bool $allowJs = false): EmptyContentSecurityPolicy {
-        $config = $this->createStub(IAppConfig::class);
-        $config->method('getAppValueString')->willReturnMap([['csp', '', false, $customCsp]]);
-        $config->method('getAppValueBool')->willReturnMap([['allowJs', false, false, $allowJs]]);
+    public function testDefaultPolicyIsNotAddedToNextcloud(): void {
+        $csp = $this->handle(null);
+
+        $this->assertSame(['blob:'], $this->domains($csp, 'allowedFrameDomains'));
+        $this->assertSame([], $this->domains($csp, 'allowedStyleDomains'));
+    }
+
+    protected function handle(?string $customCsp = '', bool $allowJs = false): EmptyContentSecurityPolicy {
+        $settings = $this->createStub(SettingsServiceInterface::class);
+        $settings->method('getAppSettings')->willReturn(new AppSettings(false, $allowJs, true, 32, 16, 5, $customCsp, null));
 
         $policy = null;
         $event = $this->createMock(AddContentSecurityPolicyEvent::class);
@@ -152,7 +159,7 @@ class CSPListenerTest extends TestCase {
                   $policy = $csp;
               });
 
-        (new CSPListener($config))->handle($event);
+        (new CSPListener($settings))->handle($event);
 
         $this->assertInstanceOf(EmptyContentSecurityPolicy::class, $policy);
 

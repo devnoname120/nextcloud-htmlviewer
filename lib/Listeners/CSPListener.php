@@ -11,8 +11,8 @@
 
 namespace OCA\HtmlViewer\Listeners;
 
+use OCA\HtmlViewer\Service\SettingsServiceInterface;
 use OCP\AppFramework\Http\EmptyContentSecurityPolicy;
-use OCP\AppFramework\Services\IAppConfig;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
 use OCP\Security\CSP\AddContentSecurityPolicyEvent;
@@ -57,7 +57,7 @@ class CSPListener implements IEventListener {
 
     protected const CSP_EVAL_PATTERN = "/'(wasm-)?unsafe-eval'/";
 
-    public function __construct(protected IAppConfig $config,) {
+    public function __construct(protected SettingsServiceInterface $settings) {
     }
 
     /**
@@ -74,8 +74,9 @@ class CSPListener implements IEventListener {
         $csp->addAllowedFrameDomain('blob:');
         $csp->addAllowedMediaDomain('data:');
 
-        $customCsp = $this->config->getAppValueString('csp');
-        if($this->config->getAppValueBool('allowJs') || preg_match(self::CSP_EVAL_PATTERN, $customCsp) === 1) {
+        $settings  = $this->settings->getAppSettings();
+        $customCsp = $settings->csp ?? '';
+        if($settings->allowJs || preg_match(self::CSP_EVAL_PATTERN, $customCsp) === 1) {
             $csp->allowEvalWasm();
         }
 

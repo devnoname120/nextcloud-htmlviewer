@@ -18,6 +18,9 @@ Administrators should also be aware that some users may not be able to different
 
 ## Settings
 
+All settings can be changed in the administration settings under "Additional settings" → "HTML Viewer" or with the occ commands below.
+Every setting can be reset to its default there. An empty CSP or sandbox restores the default policy.
+
 #### Enable Links
 
 By default, links in the HTML files can only be opened with CRTL+click.

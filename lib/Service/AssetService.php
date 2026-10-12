@@ -27,4 +27,9 @@ class AssetService implements AssetServiceInterface {
         Util::addScript(Application::APP_ID, 'htmlviewer-directEditing');
         Util::addTranslations(Application::APP_ID);
     }
+
+    public function loadAdminSettingsAssets(): void {
+        Util::addScript(Application::APP_ID, 'htmlviewer-adminSettings');
+        Util::addTranslations(Application::APP_ID);
+    }
 }

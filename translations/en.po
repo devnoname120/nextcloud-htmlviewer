@@ -66,3 +66,93 @@ msgstr "Close"
 
 msgid "directEditing.load-error"
 msgstr "The file \"{file}\" could not be loaded."
+
+msgid "admin.title"
+msgstr "HTML Viewer"
+
+msgid "admin.description"
+msgstr "Configure how HTML files are shown and edited. Changes are saved immediately."
+
+msgid "admin.section.viewer"
+msgstr "Viewer"
+
+msgid "admin.section.size"
+msgstr "File size limits"
+
+msgid "admin.section.policy"
+msgstr "Content security policy and sandbox"
+
+msgid "admin.section.policy.description"
+msgstr "The iframe which shows the HTML files is restricted by a CSP in supported browsers and a sandbox. The CSP of Nextcloud may still block content regardless of these settings. A custom policy must allow scripts for JavaScript to work."
+
+msgid "admin.new-tab-links"
+msgstr "Open links in a new tab"
+
+msgid "admin.new-tab-links.hint"
+msgstr "Allows popups in the sandbox and opens all links in a new tab. Otherwise, links can only be opened with Ctrl+click."
+
+msgid "admin.allow-js"
+msgstr "Allow JavaScript"
+
+msgid "admin.allow-js.hint"
+msgstr "Not recommended: scripts in HTML files are unknown code which is executed within Nextcloud."
+
+msgid "admin.allow-js.warning"
+msgstr "JavaScript is enabled. The sandbox and the CSP limit what scripts can do, but they can not guarantee that no user information is transferred to third parties."
+
+msgid "admin.direct-editing"
+msgstr "Direct editing in the mobile and desktop apps"
+
+msgid "admin.direct-editing.hint"
+msgstr "Offers the HTML viewer as editor for HTML files to the Android and desktop apps. Disable it to leave the direct editing of HTML files to the Text app."
+
+msgid "admin.max-size"
+msgstr "Maximum file size for viewing (MB)"
+
+msgid "admin.max-size.hint"
+msgstr "Larger files are not shown and can only be downloaded."
+
+msgid "admin.max-editor-size"
+msgstr "Maximum file size for editing (MB)"
+
+msgid "admin.max-editor-size.hint"
+msgstr "Can not exceed the maximum file size for viewing."
+
+msgid "admin.max-code-editor-size"
+msgstr "Maximum file size for the code editor (MB)"
+
+msgid "admin.max-code-editor-size.hint"
+msgstr "Larger files are edited in a plain text field. Can not exceed the maximum file size for editing."
+
+msgid "admin.csp"
+msgstr "Content security policy"
+
+msgid "admin.csp.hint"
+msgstr "Leave empty to use the default policy."
+
+msgid "admin.sandbox"
+msgstr "Sandbox permissions"
+
+msgid "admin.sandbox.hint"
+msgstr "Permissions separated by spaces, like \"allow-forms allow-modals\". Leave empty to use the default permissions."
+
+msgid "admin.sandbox.none"
+msgstr "No permissions"
+
+msgid "admin.reset"
+msgstr "Reset \"{setting}\" to default"
+
+msgid "admin.saved"
+msgstr "Setting saved"
+
+msgid "admin.reset-done"
+msgstr "Setting reset to default"
+
+msgid "admin.save-failed"
+msgstr "Could not save the setting"
+
+msgid "admin.invalid-value"
+msgstr "The value is not valid"
+
+msgid "admin.invalid-size"
+msgstr "Enter a whole number of megabytes between 0 and {max}"

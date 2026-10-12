@@ -22,6 +22,8 @@ declare(strict_types=1);
 return [
 	'routes' => [
 		['name' => 'settings#disableWarning', 'url' => '/settings/warning', 'verb' => 'POST'],
+		['name' => 'settings#updateAppSetting', 'url' => '/settings/app/{key}', 'verb' => 'PUT'],
+		['name' => 'settings#resetAppSetting', 'url' => '/settings/app/{key}', 'verb' => 'DELETE'],
 		['name' => 'directEditing#read', 'url' => '/directEditing/content', 'verb' => 'GET'],
 		['name' => 'directEditing#write', 'url' => '/directEditing/content', 'verb' => 'PUT'],
 	]

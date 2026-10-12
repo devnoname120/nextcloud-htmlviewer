@@ -58,6 +58,10 @@ Build, signing and publishing jobs only run on `testing` and `stable`.
 
 ## Conventions
 
+- All app and user config values are read, written and deleted through `SettingsServiceInterface` only, never inject `IAppConfig` anywhere else.
+  The admin-changeable settings are the cases of `Settings\AppSetting` (key, type, default); new values are validated by the `AppSettingValue` DTO.
+- The admin settings section is `Settings\AdminSettings` (section "additional", template `templates/adminSettings.php`, entry `src/adminSettings.js`).
+  It saves every change immediately through `PUT`/`DELETE /settings/app/{key}` (admin only) and confirms it with a toast.
 - Services are injected through interfaces (`lib/Service/*Interface.php`), registered with `registerServiceAlias()` in `lib/AppInfo/Application.php`.
 - Data crosses service boundaries as readonly DTOs in `lib/Dto/`, not arrays.
 - Never expose internal file IDs: the direct editing page identifies files only by their direct editing token.

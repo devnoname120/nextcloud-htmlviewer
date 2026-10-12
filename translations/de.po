@@ -8,8 +8,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "PO-Revision-Date: 2026-10-12 18:38+0000\n"
 "Last-Translator: Marius David Wieschollek <m.weblate@mdns.eu>\n"
-"Language-Team: German <https://weblate.passwordsapp.org/projects/htmlviewer/"
-"app/de/>\n"
+"Language-Team: German <https://weblate.passwordsapp.org/projects/htmlviewer/app/de/>\n"
 "X-Generator: Weblate 2026.10\n"
 
 #. Warning
@@ -78,16 +77,11 @@ msgstr "Lange Zeilen umbrechen"
 
 #. The file "{file}" ({size}) exceeds the maximum size of {maxSize} for editing.
 msgid "editor.too-large"
-msgstr ""
-"Die Datei „{file}“ ({size}) überschreitet die maximale für die Bearbeitung "
-"zulässige Größe von {maxSize}."
+msgstr "Die Datei „{file}“ ({size}) überschreitet die maximale für die Bearbeitung zulässige Größe von {maxSize}."
 
 #. The file "{file}" ({size}) exceeds the maximum size of {maxSize} for the code editor. Syntax highlighting and other editor features are not available.
 msgid "editor.too-large-for-code-editor"
-msgstr ""
-"Die Datei „{file}“ ({size}) überschreitet die maximale Größe von {maxSize} "
-"für den Code-Editor. Die Syntaxhervorhebung und andere Editorfunktionen "
-"stehen nicht zur Verfügung."
+msgstr "Die Datei „{file}“ ({size}) überschreitet die maximale Größe von {maxSize} für den Code-Editor. Die Syntaxhervorhebung und andere Editorfunktionen stehen nicht zur Verfügung."
 
 #. Close
 msgid "directEditing.close"
@@ -96,3 +90,124 @@ msgstr "Schließen"
 #. The file "{file}" could not be loaded.
 msgid "directEditing.load-error"
 msgstr "Die Datei \"{file}\" konnte nicht geladen werden."
+
+#. HTML Viewer
+msgid "admin.title"
+msgstr ""
+
+#. Configure how HTML files are shown and edited. Changes are saved immediately.
+msgid "admin.description"
+msgstr ""
+
+#. Viewer
+msgid "admin.section.viewer"
+msgstr ""
+
+#. File size limits
+msgid "admin.section.size"
+msgstr ""
+
+#. Content security policy and sandbox
+msgid "admin.section.policy"
+msgstr ""
+
+#. The iframe which shows the HTML files is restricted by a CSP in supported browsers and a sandbox. The CSP of Nextcloud may still block content regardless of these settings. A custom policy must allow scripts for JavaScript to work.
+msgid "admin.section.policy.description"
+msgstr ""
+
+#. Open links in a new tab
+msgid "admin.new-tab-links"
+msgstr ""
+
+#. Allows popups in the sandbox and opens all links in a new tab. Otherwise, links can only be opened with Ctrl+click.
+msgid "admin.new-tab-links.hint"
+msgstr ""
+
+#. Allow JavaScript
+msgid "admin.allow-js"
+msgstr ""
+
+#. Not recommended: scripts in HTML files are unknown code which is executed within Nextcloud.
+msgid "admin.allow-js.hint"
+msgstr ""
+
+#. JavaScript is enabled. The sandbox and the CSP limit what scripts can do, but they can not guarantee that no user information is transferred to third parties.
+msgid "admin.allow-js.warning"
+msgstr ""
+
+#. Direct editing in the mobile and desktop apps
+msgid "admin.direct-editing"
+msgstr ""
+
+#. Offers the HTML viewer as editor for HTML files to the Android and desktop apps. Disable it to leave the direct editing of HTML files to the Text app.
+msgid "admin.direct-editing.hint"
+msgstr ""
+
+#. Maximum file size for viewing (MB)
+msgid "admin.max-size"
+msgstr ""
+
+#. Larger files are not shown and can only be downloaded.
+msgid "admin.max-size.hint"
+msgstr ""
+
+#. Maximum file size for editing (MB)
+msgid "admin.max-editor-size"
+msgstr ""
+
+#. Can not exceed the maximum file size for viewing.
+msgid "admin.max-editor-size.hint"
+msgstr ""
+
+#. Maximum file size for the code editor (MB)
+msgid "admin.max-code-editor-size"
+msgstr ""
+
+#. Larger files are edited in a plain text field. Can not exceed the maximum file size for editing.
+msgid "admin.max-code-editor-size.hint"
+msgstr ""
+
+#. Content security policy
+msgid "admin.csp"
+msgstr ""
+
+#. Leave empty to use the default policy.
+msgid "admin.csp.hint"
+msgstr ""
+
+#. Sandbox permissions
+msgid "admin.sandbox"
+msgstr ""
+
+#. Permissions separated by spaces, like "allow-forms allow-modals". Leave empty to use the default permissions.
+msgid "admin.sandbox.hint"
+msgstr ""
+
+#. No permissions
+msgid "admin.sandbox.none"
+msgstr ""
+
+#. Reset "{setting}" to default
+msgid "admin.reset"
+msgstr ""
+
+#. Setting saved
+msgid "admin.saved"
+msgstr ""
+
+#. Setting reset to default
+msgid "admin.reset-done"
+msgstr ""
+
+#. Could not save the setting
+msgid "admin.save-failed"
+msgstr ""
+
+#. The value is not valid
+msgid "admin.invalid-value"
+msgstr ""
+
+#. Enter a whole number of megabytes between 0 and {max}
+msgid "admin.invalid-size"
+msgstr ""
+

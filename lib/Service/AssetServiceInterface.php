@@ -27,4 +27,9 @@ interface AssetServiceInterface {
      * Load the scripts of the direct editing page
      */
     public function loadDirectEditingAssets(): void;
+
+    /**
+     * Load the scripts of the admin settings section
+     */
+    public function loadAdminSettingsAssets(): void;
 }

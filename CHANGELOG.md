@@ -3,6 +3,7 @@
 - Nextcloud 35 Support
 - Code editor with syntax highlighting
 - Direct editing of HTML files in the Android and desktop apps
+- Admin settings to change and reset all settings
 ### Changed
 - Updated to Vue 3 and Nextcloud Vue 9
 - Viewer priority handling with Nextcloud Text app
@@ -14,6 +15,7 @@
 - "Do not warn again" not saved for users without admin rights
 - Inline styles blocked by the default CSP of the viewer
 - Nonces, hashes and empty values of a custom CSP added to the CSP of Nextcloud
+- Server error when a setting was set with another type through occ
 ### Removed
 - Nextcloud 34 Support
 - Legacy public share page
