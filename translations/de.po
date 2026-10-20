@@ -6,11 +6,11 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"PO-Revision-Date: 2026-10-13 21:26+0000\n"
-"Last-Translator: DeepL <noreply-mt-deepl@weblate.org>\n"
+"PO-Revision-Date: 2026-10-20 18:43+0000\n"
+"Last-Translator: Marius David Wieschollek <m.weblate@mdns.eu>\n"
 "Language-Team: German <https://weblate.passwordsapp.org/projects/htmlviewer/"
 "app/de/>\n"
-"X-Generator: Weblate 2026.10\n"
+"X-Generator: Weblate 2026.10.1\n"
 
 #. Warning
 msgid "warning.title"
@@ -93,34 +93,26 @@ msgid "directEditing.load-error"
 msgstr "Die Datei \"{file}\" konnte nicht geladen werden."
 
 #. HTML Viewer
-#, fuzzy
 msgid "admin.title"
-msgstr "HTML-Viewer"
+msgstr "HTML-Betrachter"
 
 #. Configure how HTML files are shown and edited. Changes are saved immediately.
-#, fuzzy
 msgid "admin.description"
-msgstr ""
-"Legen Sie fest, wie HTML-Dateien angezeigt und bearbeitet werden sollen. "
-"Änderungen werden sofort gespeichert."
+msgstr "Festlegen, wie HTML-Dateien angezeigt und bearbeitet werden sollen."
 
 #. Viewer
-#, fuzzy
 msgid "admin.section.viewer"
-msgstr "Viewer"
+msgstr "Betrachter"
 
 #. File size limits
-#, fuzzy
 msgid "admin.section.size"
-msgstr "Beschränkungen hinsichtlich der Dateigröße"
+msgstr "Dateigrößenbeschränkungen"
 
 #. Content security policy and sandbox
-#, fuzzy
 msgid "admin.section.policy"
-msgstr "Richtlinie zur Inhaltssicherheit und Sandbox"
+msgstr "Richtlinie zur Inhaltssicherheit (CSP) und Sandbox"
 
 #. The iframe which shows the HTML files is restricted by a CSP in supported browsers and a sandbox. The CSP of Nextcloud may still block content regardless of these settings. A custom policy must allow scripts for JavaScript to work.
-#, fuzzy
 msgid "admin.section.policy.description"
 msgstr ""
 "Der Iframe, in dem die HTML-Dateien angezeigt werden, unterliegt in "
@@ -130,137 +122,113 @@ msgstr ""
 "dies zulassen."
 
 #. Open links in a new tab
-#, fuzzy
 msgid "admin.new-tab-links"
-msgstr "Links in einem neuen Tab öffnen"
+msgstr "Links in neuem Tab öffnen"
 
 #. Allows popups in the sandbox and opens all links in a new tab. Otherwise, links can only be opened with Ctrl+click.
-#, fuzzy
 msgid "admin.new-tab-links.hint"
 msgstr ""
 "Erlaubt Popups in der Sandbox und öffnet alle Links in einem neuen Tab. "
 "Andernfalls können Links nur mit Strg+Klick geöffnet werden."
 
 #. Allow JavaScript
-#, fuzzy
 msgid "admin.allow-js"
 msgstr "JavaScript aktivieren"
 
 #. Not recommended: scripts in HTML files are unknown code which is executed within Nextcloud.
-#, fuzzy
 msgid "admin.allow-js.hint"
 msgstr ""
-"Nicht empfohlen: Skripte in HTML-Dateien sind unbekannter Code, der "
-"innerhalb von Nextcloud ausgeführt wird."
+"Warnung: Skripte in HTML-Dateien können potenziell Schadcode im Nextcloud-"
+"Konto des Nutzers ausführen."
 
 #. JavaScript is enabled. The sandbox and the CSP limit what scripts can do, but they can not guarantee that no user information is transferred to third parties.
-#, fuzzy
 msgid "admin.allow-js.warning"
 msgstr ""
-"JavaScript ist aktiviert. Die Sandbox und die CSP schränken die "
-"Möglichkeiten von Skripten ein, können jedoch nicht garantieren, dass keine "
-"Benutzerdaten an Dritte weitergegeben werden."
+"JavaScript ist aktiviert. Sandbox und die CSP schränken die Möglichkeiten "
+"von Skripten ein, können jedoch nicht garantieren, dass Dritte keinen "
+"Zugriff auf Nextcloud-Daten und Nutzerkonten erhalten."
 
 #. Direct editing in the mobile and desktop apps
-#, fuzzy
 msgid "admin.direct-editing"
 msgstr "Direkte Bearbeitung in den Mobil- und Desktop-Apps"
 
 #. Offers the HTML viewer as editor for HTML files to the Android and desktop apps. Disable it to leave the direct editing of HTML files to the Text app.
-#, fuzzy
 msgid "admin.direct-editing.hint"
 msgstr ""
-"Stellt den HTML-Viewer als Editor für HTML-Dateien in den Android- und "
+"Stellt den HTML-Betrachter als Editor für HTML-Dateien in den Android- und "
 "Desktop-Apps zur Verfügung. Deaktivieren Sie diese Option, um die direkte "
 "Bearbeitung von HTML-Dateien der Text-App zu überlassen."
 
 #. Maximum file size for viewing (MB)
-#, fuzzy
 msgid "admin.max-size"
 msgstr "Maximale Dateigröße für die Anzeige (MB)"
 
 #. Larger files are not shown and can only be downloaded.
-#, fuzzy
 msgid "admin.max-size.hint"
 msgstr ""
 "Größere Dateien werden nicht angezeigt und können nur heruntergeladen werden."
 
 #. Maximum file size for editing (MB)
-#, fuzzy
 msgid "admin.max-editor-size"
 msgstr "Maximale Dateigröße für die Bearbeitung (MB)"
 
 #. Can not exceed the maximum file size for viewing.
-#, fuzzy
 msgid "admin.max-editor-size.hint"
 msgstr ""
 "Die maximale Dateigröße für die Anzeige darf nicht überschritten werden."
 
 #. Maximum file size for the code editor (MB)
-#, fuzzy
 msgid "admin.max-code-editor-size"
-msgstr "Maximale Dateigröße für den Code-Editor (MB)"
+msgstr "Maximale Dateigröße für den erweiterten Code-Editor (MB)"
 
 #. Larger files are edited in a plain text field. Can not exceed the maximum file size for editing.
-#, fuzzy
 msgid "admin.max-code-editor-size.hint"
 msgstr ""
 "Größere Dateien werden in einem Klartextfeld bearbeitet. Die maximale "
 "Dateigröße für die Bearbeitung darf nicht überschritten werden."
 
 #. Content security policy
-#, fuzzy
 msgid "admin.csp"
-msgstr "Richtlinie zur Inhaltssicherheit"
+msgstr "Richtlinie zur Inhaltssicherheit (CSP)"
 
 #. Leave empty to use the default policy.
-#, fuzzy
 msgid "admin.csp.hint"
-msgstr "Lassen Sie das Feld leer, um die Standardrichtlinie zu verwenden."
+msgstr "Lasse das Feld leer, um die Standardrichtlinie zu verwenden."
 
 #. Sandbox permissions
-#, fuzzy
 msgid "admin.sandbox"
 msgstr "Sandbox-Berechtigungen"
 
 #. Permissions separated by spaces, like "allow-forms allow-modals". Leave empty to use the default permissions.
-#, fuzzy
 msgid "admin.sandbox.hint"
 msgstr ""
-"Berechtigungen durch Leerzeichen getrennt, z. B. „allow-forms allow-modals“. "
-"Lassen Sie das Feld leer, um die Standardberechtigungen zu verwenden."
+"Berechtigungen, durch Leerzeichen getrennt, z. B. „allow-forms allow-modals"
+"“. Lasse das Feld leer, um die Standardberechtigungen zu verwenden."
 
 #. No permissions
-#, fuzzy
 msgid "admin.sandbox.none"
 msgstr "Keine Berechtigungen"
 
 #. Reset "{setting}" to default
-#, fuzzy
 msgid "admin.reset"
 msgstr "„{Einstellung}“ auf die Standardeinstellung zurücksetzen"
 
 #. Setting saved
-#, fuzzy
 msgid "admin.saved"
-msgstr "Einstellung gespeichert"
+msgstr "Erfolgreich gespeichert"
 
 #. Setting reset to default
-#, fuzzy
 msgid "admin.reset-done"
 msgstr "Einstellungen auf Standardwerte zurücksetzen"
 
 #. Could not save the setting
-#, fuzzy
 msgid "admin.save-failed"
-msgstr "Die Einstellung konnte nicht gespeichert werden"
+msgstr "Speichern fehlgeschlagen"
 
 #. The value is not valid
-#, fuzzy
 msgid "admin.invalid-value"
-msgstr "Der Wert ist ungültig."
+msgstr "Der Wert ist ungültig"
 
 #. Enter a whole number of megabytes between 0 and {max}
-#, fuzzy
 msgid "admin.invalid-size"
-msgstr "Geben Sie eine ganze Zahl in Megabyte zwischen 0 und {max} ein."
+msgstr "Geben Sie eine ganze Zahl in Megabyte zwischen 0 und {max} ein"
