@@ -6,7 +6,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"PO-Revision-Date: 2026-10-20 18:43+0000\n"
+"PO-Revision-Date: 2026-10-26 11:41+0000\n"
 "Last-Translator: Marius David Wieschollek <m.weblate@mdns.eu>\n"
 "Language-Team: German <https://weblate.passwordsapp.org/projects/htmlviewer/"
 "app/de/>\n"
@@ -211,7 +211,7 @@ msgstr "Keine Berechtigungen"
 
 #. Reset "{setting}" to default
 msgid "admin.reset"
-msgstr "„{Einstellung}“ auf die Standardeinstellung zurücksetzen"
+msgstr "„{setting}“ auf die Standardeinstellung zurücksetzen"
 
 #. Setting saved
 msgid "admin.saved"
