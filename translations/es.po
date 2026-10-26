@@ -6,11 +6,11 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"PO-Revision-Date: 2026-10-13 21:26+0000\n"
-"Last-Translator: DeepL <noreply-mt-deepl@weblate.org>\n"
+"PO-Revision-Date: 2026-10-26 11:41+0000\n"
+"Last-Translator: Marius David Wieschollek <m.weblate@mdns.eu>\n"
 "Language-Team: Spanish <https://weblate.passwordsapp.org/projects/htmlviewer/"
 "app/es/>\n"
-"X-Generator: Weblate 2026.10\n"
+"X-Generator: Weblate 2026.10.1\n"
 
 #. Warning
 msgid "warning.title"
@@ -241,9 +241,8 @@ msgid "admin.sandbox.none"
 msgstr "Sin permisos"
 
 #. Reset "{setting}" to default
-#, fuzzy
 msgid "admin.reset"
-msgstr "Restablecer «{configuración}» a los valores predeterminados"
+msgstr "Restablecer «{setting}» a los valores predeterminados"
 
 #. Setting saved
 #, fuzzy
