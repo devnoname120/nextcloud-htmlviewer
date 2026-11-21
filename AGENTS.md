@@ -55,6 +55,9 @@ The `app` container is built from [docker/nextcloud/Dockerfile](docker/nextcloud
 GitLab ([.gitlab-ci.yml](.gitlab-ci.yml)), image `nextcloud-builder:35`.
 The `PHPUnit` job (stage `testing`) runs on every branch with `composer install` and `vendor/bin/phpunit -c tests/phpunit.xml`, natively in the image.
 Build, signing and publishing jobs only run on `testing` and `stable`.
+The `Assemble` job copies an explicit list of directories into the package (`appinfo`, `img`, `js`, `l10n`, `lib`, `templates`, `LICENSES` and `CHANGELOG.md`):
+add any new directory the app needs at runtime there, the signed package must not be patched afterwards.
+The job fails if a template used with `TemplateResponse(Application::APP_ID, '…')` is missing from the package.
 
 ## Conventions
 

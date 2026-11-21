@@ -1,3 +1,7 @@
+## 35.0.1 - Bugfix Release
+### Fixed
+- Admin settings and direct editing failing due to missing templates
+
 ## 35.0.0 - Feature Release
 ### Added
 - Nextcloud 35 Support

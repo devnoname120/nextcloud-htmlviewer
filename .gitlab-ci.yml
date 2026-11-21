@@ -69,7 +69,14 @@ Assemble:
     - rsync -r js ${APP_ID}
     - rsync -r l10n ${APP_ID}
     - rsync -r lib ${APP_ID}
+    - rsync -r templates ${APP_ID}
+    - rsync -r LICENSES ${APP_ID}
     - cp CHANGELOG.md ${APP_ID}/
+    - |
+      # Fail the build if a template used by the PHP code is missing from the package
+      for TEMPLATE in $(grep -rho "TemplateResponse(Application::APP_ID, '[^']*'" lib | sed "s/.*, '\(.*\)'$/\1/" | sort -u); do
+        if [ ! -f "${APP_ID}/templates/${TEMPLATE}.php" ]; then echo "Template ${TEMPLATE}.php is missing in the package"; exit 1; fi
+      done
     - /usr/src/nextcloud/occ integrity:sign-app --path=$(pwd)/${APP_ID} --privateKey=${SIGN_KEY} --certificate=${SIGN_CRT}
     - tar -zcf ${PACKAGE_NAME}.tar.gz ${APP_ID}
     - openssl dgst -sha512 -sign ${SIGN_KEY} -out signature.sig ./${PACKAGE_NAME}.tar.gz
